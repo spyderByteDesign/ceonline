@@ -70,12 +70,13 @@ function wistia_field_validate($entity_type, $entity, $field, $instance, $langco
   foreach ($items as $delta => $item) {
     // If a value for wistia field exists.
     if (!empty($item)) {
-      if (! preg_match('/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', $item['wistia'])) {
-        $errors[$field['field_name']][$langcode][$delta][] = array(
-          'error' => 'field_wistia_invalid',
-          'message' => t('Url provided is not oembed URL from wista. see http://wistia.com/doc/oembed')
-        );
-      }
+      // Check that oembed url is valid wistia oembed url.
+//      if (! preg_match('/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', $item['wistia'])) {
+//        $errors[$field['field_name']][$langcode][$delta][] = array(
+//          'error' => 'field_wistia_invalid',
+//          'message' => t('Url provided is not oembed URL from wista. see http://wistia.com/doc/oembed')
+//        );
+//      }
     }
   }
 }
@@ -91,26 +92,78 @@ function wistia_field_is_empty($item, $field) {
  * Implements hook_field_formatter_info().
  */
 function wistia_field_formatter_info() {
+  $return = array();
 
+  $return['wistia_video_formatter'] = array(
+    'label' => t('Wistia: Embedded Video'),
+    'field types' => array('wistia'),
+  );
+
+  return $return;
 }
 
 /**
  * Implements hook_field_formatter_view().
  */
-function wistia_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+function wistia_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, &$items, $display) {
+  $settings = $display['settings'];
 
+  $element = array();
+  switch ($display['type']) {
+    case 'wistia_video_formatter':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'a',
+          '#value' => t('Demo video'),
+          '#attributes' => array(
+            'href' => $item['wistia'],
+          ),
+        );
+      }
+      break;
+
+  }
+
+  return $element;
 }
 
 /**
  * Implements hook_field_widget_info().
  */
 function wistia_field_widget_info() {
+  $return = array();
 
+  $return['wistia_text'] = array(
+    'label' => t('Wistia Video Id'),
+    'field types' => array('wistia'),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function wistia_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $value = isset($instance['delta']['wistia']) ? $items['delta']['wistia'] : '';
+
+  switch ($instance['widget']['type']) {
+     case 'wistia_text':
+       $element += array(
+         '#type' => 'textfield',
+         '#default_value' => $value,
+         '#maxlength' => 35
+       );
+      
+      break;
+  }
+  return $element;
 }
 
 /**
  * Implements hook_field_widget_error().
  */
 function wistia_field_widget_error($element, $error, $form, &$form_state) {
-  form_error($element['value'], $error['message']);
+  form_error($element, $error['message']);
 }
