@@ -1,0 +1,7 @@
+name = Wistia
+description = Wistia
+core = 7.x
+package = Media
+
+files[] = wistia.module
+files[] = wistia.install
