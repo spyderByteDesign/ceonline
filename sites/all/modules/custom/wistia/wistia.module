@@ -6,11 +6,21 @@
 
 /**
  * Implements hook_menu().
+ *
+ * @TODO add configuration page?
  */
 function wistia_menu() {
   $items = array();
 
-  hook_menu_item
+  $items['admin/config/wistia'] = array(
+    'title' => 'Title',
+    'description' => 'Description',
+    'access callback' => 'user_access',
+    'access arguments' => array('admin/config/wistia'),
+    'page callback' => 'admin/config/wistia_foo_page',
+    'page arguments' => array(),
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -23,7 +33,7 @@ function wistia_field_info() {
 
   $return['wistia'] = array(
     'label' => t('Wistia'),
-    'description' => t('This field stores varchar text in the database.'),
+    'description' => t('Wistia video embed field.'),
     'settings' => array('max_length' => 255),
     'instance_settings' => array('text_processing' => 0),
     'default_widget' => 'text_textfield',
@@ -36,6 +46,8 @@ function wistia_field_info() {
 
 /**
  * Implements hook_field_delete().
+ *
+ * @TODO
  */
 function wistia_field_delete($entity_type, $entity, $field, $instance, $langcode, &$items) {
   
@@ -43,6 +55,8 @@ function wistia_field_delete($entity_type, $entity, $field, $instance, $langcode
 
 /**
  * Implements hook_field_delete_revision().
+ *
+ * @TODO
  */
 function wistia_field_delete_revision($entity_type, $entity, $field, $instance, $langcode, &$items) {
   
@@ -53,14 +67,24 @@ function wistia_field_delete_revision($entity_type, $entity, $field, $instance, 
  * Implements hook_field_validate().
  */
 function wistia_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
-
+  foreach ($items as $delta => $item) {
+    // If a value for wistia field exists.
+    if (!empty($item)) {
+      if (! preg_match('/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', $item['wistia'])) {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'field_wistia_invalid',
+          'message' => t('Url provided is not oembed URL from wista. see http://wistia.com/doc/oembed')
+        );
+      }
+    }
+  }
 }
 
 /**
  * Implements hook_field_is_empty().
  */
 function wistia_field_is_empty($item, $field) {
-
+  return empty($item['wistia']);
 }
 
 /**
