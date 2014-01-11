@@ -1,1 +1,13 @@
 <?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for th wistia module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function wistia_field_schema($field) {
+
+}

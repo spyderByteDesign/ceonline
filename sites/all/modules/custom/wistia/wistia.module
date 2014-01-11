@@ -1,1 +1,92 @@
 <?php
+/**
+ * @file
+ * A field for Wistia video embeds.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function wistia_menu() {
+  $items = array();
+
+  hook_menu_item
+
+  return $items;
+}
+
+/**
+ * Implements hook_field_info().
+ */
+function wistia_field_info() {
+  $return = array();
+
+  $return['wistia'] = array(
+    'label' => t('Wistia'),
+    'description' => t('This field stores varchar text in the database.'),
+    'settings' => array('max_length' => 255),
+    'instance_settings' => array('text_processing' => 0),
+    'default_widget' => 'text_textfield',
+    'default_formatter' => 'text_default',
+  );
+
+
+  return $return;
+}
+
+/**
+ * Implements hook_field_delete().
+ */
+function wistia_field_delete($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  
+}
+
+/**
+ * Implements hook_field_delete_revision().
+ */
+function wistia_field_delete_revision($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  
+}
+
+
+/**
+ * Implements hook_field_validate().
+ */
+function wistia_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function wistia_field_is_empty($item, $field) {
+
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function wistia_field_formatter_info() {
+
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function wistia_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function wistia_field_widget_info() {
+
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function wistia_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($element['value'], $error['message']);
+}
