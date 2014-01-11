@@ -47,6 +47,14 @@ function ceo_custom_video_product_fields_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'video_product_type' => array(
+      'name' => t('Video Product Type'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
   );
   return $items;
 }
