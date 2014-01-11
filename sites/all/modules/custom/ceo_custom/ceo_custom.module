@@ -60,7 +60,7 @@ function ceo_custom_node_grants($account, $op) {
  * Implements hook_node_access_records().
  */
 function ceo_custom_node_access_records($node) {
-  if ($node->type == 'video_') {
+  if ($node->type == 'training_video') {
     $grants = array();
 
     $grants[] = array(
