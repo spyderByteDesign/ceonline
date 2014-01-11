@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function ceo_custom_install() {
+}
+
+/**
+ * Implements hook_schema().
+ */
+function ceo_custom_schema() {
+  $schema = array();
+
+  $schema['ceo_custom_video_purchases'] = array(
+    'description' => 'This table holds UID and NID data for videos purchased by a user.',
+    //hook_schema_item_export
+
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique custom_video_purchase ID.',
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The nid of the purchased video.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid that created this record.',
+      ),
+      'order_number' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The order that generated this record.',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

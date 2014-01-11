@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CEO Custom Video Product & Fields feature.
+ */
+
+include_once 'ceo_custom_video_product_fields.features.inc';

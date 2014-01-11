@@ -1,0 +1,7 @@
+name = CE Online Custom
+description = Custom functionality for the CE Online Training Site
+core = 7.x
+package = CEO Custom
+dependencies[] = commerce_cart
+dependencies[] = commerce_checkout
+dependencies[] = commerce_line_item
