@@ -11,22 +11,18 @@
 function wistia_field_schema($field) {
   $schema = NULL;
 
-  switch ($field['wistia']) {
-    case 'wistia':
-      $schema = array(
-        'columns' => array(
-          'wistia' => array(
-            'type' => 'varchar',
-            'length' => 255,
-            'not null' => FALSE,
-          ),
-        ),
-        'indexes' => array(
-          'wistia' => array('wistia'),
-        ),
-      );
-      break;
-  }
+  $schema = array(
+    'columns' => array(
+      'wistia' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+    ),
+    'indexes' => array(
+      'wistia' => array('wistia'),
+    ),
+  );
 
   return $schema;
 }
