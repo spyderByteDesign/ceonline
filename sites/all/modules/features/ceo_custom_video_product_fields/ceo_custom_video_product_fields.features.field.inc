@@ -737,9 +737,13 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
+          'module' => 'title',
+          'settings' => array(
+            'title_class' => '',
+            'title_link' => '',
+            'title_style' => 'h1',
+          ),
+          'type' => 'title_linked',
           'weight' => '0',
         ),
         'product_list' => array(
@@ -750,9 +754,13 @@ function ceo_custom_video_product_fields_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
+          'module' => 'title',
+          'settings' => array(
+            'title_class' => '',
+            'title_link' => 'content',
+            'title_style' => 'h2',
+          ),
+          'type' => 'title_linked',
           'weight' => '0',
         ),
       ),
@@ -819,7 +827,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 1,
+          'weight' => '1',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -903,7 +911,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 2,
+          'weight' => '2',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -912,10 +920,11 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'weight' => 0,
         ),
         'teaser' => array(
-          'label' => 'above',
+          'label' => 'hidden',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'node',
@@ -974,10 +983,15 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'title',
+          'settings' => array(
+            'title_class' => '',
+            'title_link' => '',
+            'title_style' => 'h1',
+          ),
+          'type' => 'title_linked',
+          'weight' => '0',
         ),
         'product_list' => array(
           'label' => 'above',
