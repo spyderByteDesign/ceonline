@@ -39,6 +39,14 @@ function ceo_custom_video_product_fields_ctools_plugin_api() {
  */
 function ceo_custom_video_product_fields_node_info() {
   $items = array(
+    'course' => array(
+      'name' => t('Course'),
+      'base' => 'node_content',
+      'description' => t('A course that will be completed via a certain number of videos. '),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'training_video' => array(
       'name' => t('Training Video'),
       'base' => 'node_content',
