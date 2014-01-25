@@ -1,0 +1,12 @@
+name = CEO Course Listing/Video Views
+description = Provides views for the course listing and videos
+core = 7.x
+package = ceo_custom
+version = 7.x-1.0
+project = ceo_course_listing_video_views
+dependencies[] = ctools
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[views_view][] = course_listing
+features[views_view][] = course_videos

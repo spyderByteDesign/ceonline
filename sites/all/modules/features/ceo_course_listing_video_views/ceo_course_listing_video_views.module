@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CEO Course Listing/Video Views feature.
+ */
+
+include_once 'ceo_course_listing_video_views.features.inc';
