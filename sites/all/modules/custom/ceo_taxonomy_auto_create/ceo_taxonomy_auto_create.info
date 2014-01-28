@@ -1,0 +1,5 @@
+name = CEO Taxonomy Auto Create
+description = Automatically creates taxonomy terms when new course nodes are saved.
+core = 7.x
+package = CEO Custom
+dependencies[] = ceo_custom_video_product_fields

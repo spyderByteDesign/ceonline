@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * @copyright Copyright (c) 2014 Spyderbyte Design
+ */
+
+/**
+ * Implements hook_node_presave().
+ * If the user changes the title of a course, we need to change the name of
+ * its corresponding taxonomy term.
+ */
+function ceo_taxonomy_auto_create_node_presave($node) {
+  if ($node->type == 'course' && $node->is_new != TRUE) {
+    $old_node = node_load($node->nid);
+    if ($node->title != $old_node->title) {
+      $term = taxonomy_get_term_by_name($old_node->title);
+      if (!empty($term)) {
+        foreach ($term as $value) {
+          if ($value->name == $old_node->title) {
+            $value->name = $node->title;
+            taxonomy_term_save($value);
+          }
+        }
+      }
+    }
+  }
+  if ($node->type == 'course' && $node->is_new == TRUE) {
+    $vid = taxonomy_vocabulary_machine_name_load('training_course')->vid;
+    $term = new stdClass();
+    $term->name = t($node->title);
+    $term->vid = $vid;
+    taxonomy_term_save($term);
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function ceo_taxonomy_auto_create_node_delete($node) {
+  if ($node->type == 'course') {
+    $term = taxonomy_get_term_by_name($node->title);
+    if (!empty($term)) {
+      foreach ($term as $value) {
+        drupal_set_message(t('Deleted term ' . $value->name));
+        taxonomy_term_delete($value->tid);
+      }
+    }
+  }
+}
