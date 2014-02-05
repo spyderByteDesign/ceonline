@@ -2,6 +2,7 @@ name = CEO Course Listing/Video Views
 description = Provides views for the course listing and videos
 core = 7.x
 package = ceo_custom
+php = 5.2.4
 version = 7.x-1.0
 project = ceo_course_listing_video_views
 dependencies[] = ctools

@@ -59,22 +59,6 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'course' => 'course',
   );
-  /* Filter criterion: Content: Has taxonomy term */
-  $handler->display->display_options['filters']['tid']['id'] = 'tid';
-  $handler->display->display_options['filters']['tid']['table'] = 'taxonomy_index';
-  $handler->display->display_options['filters']['tid']['field'] = 'tid';
-  $handler->display->display_options['filters']['tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['tid']['expose']['operator_id'] = 'tid_op';
-  $handler->display->display_options['filters']['tid']['expose']['label'] = 'Course';
-  $handler->display->display_options['filters']['tid']['expose']['operator'] = 'tid_op';
-  $handler->display->display_options['filters']['tid']['expose']['identifier'] = 'tid';
-  $handler->display->display_options['filters']['tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['tid']['type'] = 'select';
-  $handler->display->display_options['filters']['tid']['vocabulary'] = 'training_course';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
