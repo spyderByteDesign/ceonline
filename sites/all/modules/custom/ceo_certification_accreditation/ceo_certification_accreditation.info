@@ -1,0 +1,4 @@
+name = CE Online Training Certification & Accreditation
+description = Provides functionality related to certificates and accreditation progress.
+core = 7.x
+package = CEO Custom

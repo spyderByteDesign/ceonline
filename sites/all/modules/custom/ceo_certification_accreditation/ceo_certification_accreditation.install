@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * @copyright Copyright (c) 2014 Palantir.net
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function ceo_certification_accreditation_schema() {
+  $schema = array();
+
+  $schema['ceo_certification_accreditation'] = array(
+    'description' => 'Long description',
+    //hook_schema_item_export
+
+    'fields' => array(
+      'aid' => array(
+        'type' => 'serial',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique Ceo_certification_accreditation ID.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user this record applies to.',
+      ),
+      'cid' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The course this record applies to.',
+      ),
+      'credits' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Number of credits the user has for this class.',
+      ),
+      'last_updated' => array(
+        'type' => 'datetime',
+        'mysql_type' => 'DATETIME',
+        'pgsql_type' => 'timestamp without time zone',
+        'sqlite_type' => 'VARCHAR',
+        'sqlsrv_type' => 'smalldatetime',
+        'description' => 'Last date that the user obtained a credit.',
+        'not null' => TRUE,
+        'sortable' => TRUE,
+        'views' => TRUE,
+      ),
+    ),
+    'primary key' => array('aid'),
+
+  );
+
+  return $schema;
+}

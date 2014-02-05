@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * @copyright Copyright (c) 2014 Palantir.net
+ */
+
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ceo_certification_accreditation_preprocess_node(&$variables) {
+  global $user;
+
+  if ($user->uid != 0) {
+    $term = taxonomy_get_term_by_name($variables['title']);
+    if (!empty($term)) {
+      $variables['course_links'] = array();
+      foreach ($term as $value) {
+        $query = db_select('ceo_certification_accreditation', 'ca')
+          ->fields('ca', array('credits'))
+          ->condition('ca.uid', $user->uid)
+          ->condition('ca.cid', $value->tid);
+        $results = $query->execute()->fetchCol();
+        $variables['credits_obtained'] = !empty($results) ? $results[0] : 0;
+      }
+    }
+  }
+
+}
