@@ -12,9 +12,10 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
   global $user;
 
   if ($user->uid != 0) {
-    $term = taxonomy_get_term_by_name($variables['title']);
-    if (!empty($term)) {
-      $variables['course_links'] = array();
+    if (empty($variables['course_term'])) {
+      $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
+    }
+    if (!empty($term) && empty($variables['credits_obtained'])) {
       foreach ($term as $value) {
         $query = db_select('ceo_certification_accreditation', 'ca')
           ->fields('ca', array('credits'))
