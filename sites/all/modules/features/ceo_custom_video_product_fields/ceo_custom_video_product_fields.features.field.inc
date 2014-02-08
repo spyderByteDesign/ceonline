@@ -700,6 +700,75 @@ function ceo_custom_video_product_fields_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-course-field_credits_required'.
+  $fields['node-course-field_credits_required'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_credits_required',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'course',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'How many credits are required to complete this course?',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => 3,
+        ),
+        'product_list' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'fences_wrapper' => '',
+      'field_name' => 'field_credits_required',
+      'label' => 'Credits Required',
+      'required' => 1,
+      'settings' => array(
+        'max' => '',
+        'min' => '1',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '32',
+      ),
+    ),
+  );
+
   // Exported field: 'node-course-title_field'.
   $fields['node-course-title_field'] = array(
     'field_config' => array(
@@ -857,6 +926,75 @@ function ceo_custom_video_product_fields_field_default_fields() {
         ),
         'type' => 'text_textarea_with_summary',
         'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-training_video-field_course_order'.
+  $fields['node-training_video-field_course_order'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_course_order',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'training_video',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'In video lists for this course, what position should this video appear in? One will appear at the top of lists, with higher numbers coming after. If two videos have the same position, they will sort alphabetically. ',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => 3,
+        ),
+        'product_list' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'fences_wrapper' => '',
+      'field_name' => 'field_course_order',
+      'label' => 'Course Order',
+      'required' => 1,
+      'settings' => array(
+        'max' => '',
+        'min' => '1',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '6',
       ),
     ),
   );
@@ -1467,7 +1605,11 @@ function ceo_custom_video_product_fields_field_default_fields() {
   t('Check this box if the product is a package and will include multiple videos.');
   t('Comment');
   t('Course');
+  t('Course Order');
+  t('Credits Required');
   t('Description');
+  t('How many credits are required to complete this course?');
+  t('In video lists for this course, what position should this video appear in? One will appear at the top of lists, with higher numbers coming after. If two videos have the same position, they will sort alphabetically. ');
   t('Price');
   t('Product is a Package');
   t('Product variations');
