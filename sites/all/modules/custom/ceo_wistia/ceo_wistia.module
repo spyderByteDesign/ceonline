@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Integrates Wistia oembed fields with the Wistia player API.
+ *
+ * @copyright (c) Copyright 2014 Spyder Byte Design LLC
+ */
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function ceo_wistia_preprocess_field(&$variables, $hook) {
+  // Add javascript for Wistia javascript Player API.
+  if($variables['element']['#field_name'] == 'field_video') {
+    drupal_add_js(drupal_get_path('module', 'ceo_wistia') . '/ceo_wistia.js');
+  }
+}
