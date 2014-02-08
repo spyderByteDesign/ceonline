@@ -15,14 +15,21 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
     if (empty($variables['course_term'])) {
       $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
     }
-    if (!empty($term) && empty($variables['credits_obtained'])) {
-      foreach ($term as $value) {
+    if (!empty($variables['course_term']) && empty($variables['credits_obtained'])) {
+      foreach ($variables['course_term'] as $value) {
         $query = db_select('ceo_certification_accreditation', 'ca')
           ->fields('ca', array('credits'))
           ->condition('ca.uid', $user->uid)
           ->condition('ca.cid', $value->tid);
-        $results = $query->execute()->fetchCol();
-        $variables['credits_obtained'] = !empty($results) ? $results[0] : 0;
+        $results = $query->execute()->fetchAll();
+        if (!empty($results)) {
+          $credits_obtained = 0;
+          foreach ($results as $value) {
+            $credits_obtained += $value->credits;
+          }
+
+        }
+        $variables['credits_obtained'] = $credits_obtained;
       }
     }
   }
