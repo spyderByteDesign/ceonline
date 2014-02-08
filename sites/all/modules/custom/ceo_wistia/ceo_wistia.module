@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * Integrates Wistia oembed fields with the Wistia player API.
+ *
+ * @copyright (c) Copyright 2014 Spyder Byte Design LLC
+ */
+
