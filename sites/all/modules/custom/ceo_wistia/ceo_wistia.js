@@ -5,20 +5,17 @@
 //        alert('jquery loaded');
 //      });
 //    }
-
-
-
   };
-  $('.messages').dialog({ modal: true });
+
+
+  modal();
+  $('#dialog').hide();
 
   // Perform checks at second intervals.
   wistiaEmbed.bind("secondchange", function (s) {
-    var length = wistiaEmbed.duration();
-
     // Stop video every 900 seconds.
-    if(s % 5 == 0 && s != 0) {
+    if(s % 2 == 0 && s != 0) {
       wistiaEmbed.pause();
-
     }
   });
 
@@ -27,6 +24,20 @@
   wistiaEmbed.bind("end", function () {
     window.location.href == "http://newUrl.com";
   });
+
+  function modal() {
+    $( "#dialog" ).dialog({
+      modal: true,
+      resizable: false,
+      height: 240,
+      width: 400,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  }
 
 
 }(jQuery));
