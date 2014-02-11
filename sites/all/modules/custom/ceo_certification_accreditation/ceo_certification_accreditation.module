@@ -6,6 +6,84 @@
 
 
 /**
+ * Implements hook_page_build().
+ */
+function ceo_certification_accreditation_page_build(&$page) {
+
+}
+
+/**
+ * Implements hook_menu().
+ */
+function ceo_certification_accreditation_menu() {
+  $items = array();
+
+  /**
+   * Args: UID, Video ID, Credits obtained.
+   */
+  $items['ceo_certification_accreditation/credit'] = array(
+    'title' => 'Add Credit to User',
+    'description' => 'Menu callback for adding credit to user.',
+    'access callback' => 'ceo_certification_access',
+    'page callback' => 'ceo_certification_add_credit',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+function ceo_certification_access() {
+  return TRUE;
+}
+
+/**
+ * Adds credit to a user for having watched a video.
+ *
+ * @param int $user
+ *   The user id of the user who needs crediting.
+ * @param int $video
+ *   ID of the video being given credit for.
+ * @param int $credits
+ *   Credits received for the video.
+ *
+ * @return bool
+ *   True if successful, false otherwise.
+ */
+function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1) {
+
+  $output = 'start';
+
+  if (empty($user) || empty($video)) {
+    return FALSE;
+  }
+  else {
+    $query = db_select('ceo_certification_accreditation', 'ca')
+      ->fields('ca', array('aid'))
+      ->condition('ca.uid', $user)
+      ->condition('ca.vid', $video);
+    $results = $query->execute()->fetchAll();
+    if (!empty($results)) {
+      //@todo Update course to actually get the term attached to it.
+        //This is going to require a simple query to get the field value.
+        //The field API is surprisingly unhelpful here.
+      $course = 0;
+      $insert = db_insert('ceo_certification_accreditation')
+        ->fields(array(
+          'uid' => $user,
+          'vid' => $video,
+          'cid' => $course,
+          'credits' => $credits,
+          'last_updated' => REQUEST_TIME,
+        ))
+        ->execute();
+    }
+  }
+
+  print $output;
+
+}
+
+/**
  * Implements hook_preprocess_node().
  */
 function ceo_certification_accreditation_preprocess_node(&$variables) {
@@ -16,6 +94,7 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
       $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
     }
     if (!empty($variables['course_term']) && empty($variables['credits_obtained'])) {
+      $credits_obtained = 0;
       foreach ($variables['course_term'] as $value) {
         $query = db_select('ceo_certification_accreditation', 'ca')
           ->fields('ca', array('credits'))
@@ -23,7 +102,6 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
           ->condition('ca.cid', $value->tid);
         $results = $query->execute()->fetchAll();
         if (!empty($results)) {
-          $credits_obtained = 0;
           foreach ($results as $value) {
             $credits_obtained += $value->credits;
           }
