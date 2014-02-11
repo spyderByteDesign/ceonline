@@ -13,6 +13,6 @@
 function ceo_wistia_preprocess_field(&$variables, $hook) {
   // Add javascript for Wistia javascript Player API.
   if($variables['element']['#field_name'] == 'field_video') {
-    drupal_add_js(drupal_get_path('module', 'ceo_wistia') . '/ceo_wistia.js');
+    drupal_add_js(drupal_get_path('module', 'ceo_wistia') . '/ceo_wistia.js', array('scope' => 'footer'));
   }
 }
