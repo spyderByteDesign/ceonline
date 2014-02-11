@@ -18,10 +18,8 @@ function ceo_certification_accreditation_page_build(&$page) {
 function ceo_certification_accreditation_menu() {
   $items = array();
 
-  /**
-   * Args: UID, Video ID, Credits obtained.
-   */
-  $items['ceo_certification_accreditation/credit'] = array(
+  // Args: UID, Video ID, Credits obtained.
+  $items["ceo_certification_accreditation/credit"] = array(
     'title' => 'Add Credit to User',
     'description' => 'Menu callback for adding credit to user.',
     'access callback' => 'ceo_certification_access',
@@ -32,6 +30,9 @@ function ceo_certification_accreditation_menu() {
   return $items;
 }
 
+/**
+ * Provides function to determine access at a later date if desired.
+ */
 function ceo_certification_access() {
   return TRUE;
 }
@@ -50,8 +51,6 @@ function ceo_certification_access() {
  *   True if successful, false otherwise.
  */
 function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1) {
-
-
   if (!empty($user) && !empty($video)) {
     // Check to be sure the user doesn't already have credit for this video.
     $query = db_select('ceo_certification_accreditation', 'ca')
