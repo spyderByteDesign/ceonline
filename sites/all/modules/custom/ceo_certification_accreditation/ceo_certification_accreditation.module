@@ -51,35 +51,55 @@ function ceo_certification_access() {
  */
 function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1) {
 
-  $output = 'start';
 
-  if (empty($user) || empty($video)) {
-    return FALSE;
-  }
-  else {
+  if (!empty($user) && !empty($video)) {
+    // Check to be sure the user doesn't already have credit for this video.
     $query = db_select('ceo_certification_accreditation', 'ca')
       ->fields('ca', array('aid'))
       ->condition('ca.uid', $user)
       ->condition('ca.vid', $video);
     $results = $query->execute()->fetchAll();
-    if (!empty($results)) {
-      //@todo Update course to actually get the term attached to it.
-        //This is going to require a simple query to get the field value.
-        //The field API is surprisingly unhelpful here.
-      $course = 0;
-      $insert = db_insert('ceo_certification_accreditation')
-        ->fields(array(
-          'uid' => $user,
-          'vid' => $video,
-          'cid' => $course,
-          'credits' => $credits,
-          'last_updated' => REQUEST_TIME,
-        ))
-        ->execute();
+    if (empty($results)) {
+      // Get the training course a given video is part of.
+      $course = db_select('field_data_field_training_course', 'tc')
+        ->condition('entity_id', $video)
+        ->fields('tc', array('field_training_course_tid'));
+      $course_results = $course->execute()->fetchAssoc();
+      if (!empty($course_results)) {
+        // Give the user credit for completing the video.
+        $insert = db_insert('ceo_certification_accreditation')
+          ->fields(array(
+            'uid' => $user,
+            'vid' => $video,
+            'cid' => $course_results['field_training_course_tid'],
+            'credits' => $credits,
+            'last_updated' => date('Y-m-d H-m-s'),
+          ))
+          ->execute();
+
+        // If successful, return a message indicating success.
+        if ($insert == TRUE) {
+          return t("Credit successfully applied.");
+        }
+        // Insert failed.
+        else {
+          return t("Insert failed for unknown reasons. Check PHP error log.");
+        }
+      }
+      // Course determining query failed.
+      else {
+        return t("Could not determine course for video");
+      }
+    }
+    // User already has credit for course.
+    else {
+      return t("User already has credit for this course");
     }
   }
-
-  print $output;
+  // Missing URL parameters.
+  else {
+    return t("User or video ID not supplied.");
+  }
 
 }
 

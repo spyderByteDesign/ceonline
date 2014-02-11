@@ -52,13 +52,13 @@ function ceo_certification_accreditation_schema() {
         'default' => 0,
         'description' => 'Number of credits the user has for this class.',
       ),
-      'last_updated' => array(
+      'credit_obtained' => array(
         'type' => 'datetime',
         'mysql_type' => 'DATETIME',
         'pgsql_type' => 'timestamp without time zone',
         'sqlite_type' => 'VARCHAR',
         'sqlsrv_type' => 'smalldatetime',
-        'description' => 'Last date that the user obtained a credit.',
+        'description' => 'Date and time the credit was obtained.',
         'not null' => TRUE,
         'sortable' => TRUE,
         'views' => TRUE,
