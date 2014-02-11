@@ -108,12 +108,16 @@ function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1)
 function ceo_certification_accreditation_preprocess_node(&$variables) {
   global $user;
 
+  // If the user is logged in, check their status.
   if ($user->uid != 0) {
+    // If the course for the node hasn't been determined yet, get the course.
     if (empty($variables['course_term'])) {
       $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
     }
+    // If course was successfully obtained and credits haven't been determine.
     if (!empty($variables['course_term']) && empty($variables['credits_obtained'])) {
       $credits_obtained = 0;
+      // Get all credits obtained towards a given course.
       foreach ($variables['course_term'] as $value) {
         $query = db_select('ceo_certification_accreditation', 'ca')
           ->fields('ca', array('credits'))
@@ -121,11 +125,12 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
           ->condition('ca.cid', $value->tid);
         $results = $query->execute()->fetchAll();
         if (!empty($results)) {
+          // Add all the values together.
           foreach ($results as $value) {
             $credits_obtained += $value->credits;
           }
-
         }
+        // Make the credits obtained available to other areas.
         $variables['credits_obtained'] = $credits_obtained;
       }
     }
