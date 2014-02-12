@@ -6,16 +6,111 @@
 
 
 /**
+ * Implements hook_menu().
+ */
+function ceo_certification_accreditation_menu() {
+  $items = array();
+
+  // Args: UID, Video ID, Credits obtained.
+  $items["ceo_certification_accreditation/credit"] = array(
+    'title' => 'Add Credit to User',
+    'description' => 'Menu callback for adding credit to user.',
+    'access callback' => 'ceo_certification_access',
+    'page callback' => 'ceo_certification_add_credit',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Provides function to determine access at a later date if desired.
+ */
+function ceo_certification_access() {
+  return TRUE;
+}
+
+/**
+ * Adds credit to a user for having watched a video.
+ *
+ * @param int $user
+ *   The user id of the user who needs crediting.
+ * @param int $video
+ *   ID of the video being given credit for.
+ * @param int $credits
+ *   Credits received for the video.
+ *
+ * @return bool
+ *   True if successful, false otherwise.
+ */
+function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1) {
+  if (!empty($user) && !empty($video)) {
+    // Check to be sure the user doesn't already have credit for this video.
+    $query = db_select('ceo_certification_accreditation', 'ca')
+      ->fields('ca', array('aid'))
+      ->condition('ca.uid', $user)
+      ->condition('ca.vid', $video);
+    $results = $query->execute()->fetchAll();
+    if (empty($results)) {
+      // Get the training course a given video is part of.
+      $course = db_select('field_data_field_training_course', 'tc')
+        ->condition('entity_id', $video)
+        ->fields('tc', array('field_training_course_tid'));
+      $course_results = $course->execute()->fetchAssoc();
+      if (!empty($course_results)) {
+        // Give the user credit for completing the video.
+        $insert = db_insert('ceo_certification_accreditation')
+          ->fields(array(
+            'uid' => $user,
+            'vid' => $video,
+            'cid' => $course_results['field_training_course_tid'],
+            'credits' => $credits,
+            'last_updated' => date('Y-m-d H-m-s'),
+          ))
+          ->execute();
+
+        // If successful, return a message indicating success.
+        if ($insert == TRUE) {
+          return t("Credit successfully applied.");
+        }
+        // Insert failed.
+        else {
+          return t("Insert failed for unknown reasons. Check PHP error log.");
+        }
+      }
+      // Course determining query failed.
+      else {
+        return t("Could not determine course for video");
+      }
+    }
+    // User already has credit for course.
+    else {
+      return t("User already has credit for this course");
+    }
+  }
+  // Missing URL parameters.
+  else {
+    return t("User or video ID not supplied.");
+  }
+
+}
+
+/**
  * Implements hook_preprocess_node().
  */
 function ceo_certification_accreditation_preprocess_node(&$variables) {
   global $user;
 
+  // If the user is logged in, check their status.
   if ($user->uid != 0) {
+    // If the course for the node hasn't been determined yet, get the course.
     if (empty($variables['course_term'])) {
       $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
     }
+    // If course was successfully obtained and credits haven't been determine.
     if (!empty($variables['course_term']) && empty($variables['credits_obtained'])) {
+      $credits_obtained = 0;
+      // Get all credits obtained towards a given course.
       foreach ($variables['course_term'] as $value) {
         $query = db_select('ceo_certification_accreditation', 'ca')
           ->fields('ca', array('credits'))
@@ -23,12 +118,12 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
           ->condition('ca.cid', $value->tid);
         $results = $query->execute()->fetchAll();
         if (!empty($results)) {
-          $credits_obtained = 0;
+          // Add all the values together.
           foreach ($results as $value) {
             $credits_obtained += $value->credits;
           }
-
         }
+        // Make the credits obtained available to other areas.
         $variables['credits_obtained'] = $credits_obtained;
       }
     }
