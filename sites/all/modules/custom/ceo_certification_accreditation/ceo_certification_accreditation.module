@@ -11,12 +11,23 @@
 function ceo_certification_accreditation_menu() {
   $items = array();
 
+  // Callback for adding credits to a user.
   // Args: UID, Video ID, Credits obtained.
   $items["ceo_certification_accreditation/credit"] = array(
     'title' => 'Add Credit to User',
     'description' => 'Menu callback for adding credit to user.',
-    'access callback' => 'ceo_certification_access',
+    'access callback' => 'ceo_certification_credit_access',
     'page callback' => 'ceo_certification_add_credit',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Callback for when a video is completed.
+  // Args: UID, Video ID.
+  $items['ceo_certification_accreditation/completion/'] = array(
+    'title' => 'Video Completion Callback',
+    'description' => 'Performs tasks related to video completion.',
+    'access callback' => 'ceo_certification_completion_access',
+    'page callback' => 'ceo_certification_completion',
     'type' => MENU_CALLBACK,
   );
 
@@ -26,8 +37,50 @@ function ceo_certification_accreditation_menu() {
 /**
  * Provides function to determine access at a later date if desired.
  */
-function ceo_certification_access() {
+function ceo_certification_credit_access() {
   return TRUE;
+}
+
+/**
+ * Provides function to determine access at a later date if desired.
+ */
+function ceo_certification_completion_access() {
+  return TRUE;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function ceo_certification_accreditation_preprocess_node(&$variables) {
+  global $user;
+
+  // If the user is logged in, check their status.
+  if ($user->uid != 0) {
+    // If the course for the node hasn't been determined yet, get the course.
+    if (empty($variables['course_term'])) {
+      $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
+    }
+    // If course was successfully obtained and credits haven't been determine.
+    if (!empty($variables['course_term']) && empty($variables['credits_obtained'])) {
+      $credits_obtained = 0;
+      // Get all credits obtained towards a given course.
+      foreach ($variables['course_term'] as $value) {
+        $query = db_select('ceo_certification_accreditation', 'ca')
+          ->fields('ca', array('credits'))
+          ->condition('ca.uid', $user->uid)
+          ->condition('ca.cid', $value->tid);
+        $results = $query->execute()->fetchAll();
+        if (!empty($results)) {
+          // Add all the values together.
+          foreach ($results as $value) {
+            $credits_obtained += $value->credits;
+          }
+        }
+        // Make the credits obtained available to other areas.
+        $variables['credits_obtained'] = $credits_obtained;
+      }
+    }
+  }
 }
 
 /**
@@ -96,37 +149,19 @@ function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1)
 }
 
 /**
- * Implements hook_preprocess_node().
+ * Provides functionality related to video completion.
+ *
+ * @param int $user_id
+ *   ID of user who completed the video.
+ * @param int $video_id
+ *   The video that was completed.
  */
-function ceo_certification_accreditation_preprocess_node(&$variables) {
-  global $user;
+function ceo_certification_completion($user_id = NULL, $video_id = NULL) {
+  if (!empty($user_id) && !empty($video_id)) {
 
-  // If the user is logged in, check their status.
-  if ($user->uid != 0) {
-    // If the course for the node hasn't been determined yet, get the course.
-    if (empty($variables['course_term'])) {
-      $variables['course_term'] = taxonomy_get_term_by_name($variables['title']);
-    }
-    // If course was successfully obtained and credits haven't been determine.
-    if (!empty($variables['course_term']) && empty($variables['credits_obtained'])) {
-      $credits_obtained = 0;
-      // Get all credits obtained towards a given course.
-      foreach ($variables['course_term'] as $value) {
-        $query = db_select('ceo_certification_accreditation', 'ca')
-          ->fields('ca', array('credits'))
-          ->condition('ca.uid', $user->uid)
-          ->condition('ca.cid', $value->tid);
-        $results = $query->execute()->fetchAll();
-        if (!empty($results)) {
-          // Add all the values together.
-          foreach ($results as $value) {
-            $credits_obtained += $value->credits;
-          }
-        }
-        // Make the credits obtained available to other areas.
-        $variables['credits_obtained'] = $credits_obtained;
-      }
-    }
+
   }
-
+  else {
+    return t("User or video ID not supplied.");
+  }
 }
