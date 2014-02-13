@@ -7,8 +7,7 @@
 //    }
   };
 
-
-  modal();
+  //Drupal.settings.ceo_wistia.uid
   $('#dialog').hide();
 
   // Perform checks at second intervals.
@@ -16,6 +15,8 @@
     // Stop video every 900 seconds.
     if(s % 2 == 0 && s != 0) {
       wistiaEmbed.pause();
+      $('#dialog').show();
+      modal();
     }
   });
 
