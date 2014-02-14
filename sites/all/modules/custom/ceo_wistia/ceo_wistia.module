@@ -7,16 +7,31 @@
  * @copyright (c) Copyright 2014 Spyder Byte Design LLC
  */
 
+/**
+ * Implements hook_menu().
+ */
 function ceo_wistia_menu() {
   $items['ceo_wistia/progress'] = array(
-    'title' => 'Title',
-    'description' => 'Description',
+    'title' => 'Wistia Video Progress',
+    'description' => 'Update a user\'s progress of a video.' ,
     'access callback' => 'user_access',
     'access arguments' => array('ceo_wistia'),
-    'page callback' => 'ceo_wistia_foo_page',
-    'page arguments' => array(),
+    'page callback' => 'ceo_wistia_progress',
+    'page arguments' => array('nid', 'uid', 'progress'),
     'type' => MENU_CALLBACK,
   );
+}
+
+function ceo_wistia_progress($nid = 0, $uid = 0, $progress = 0) {
+  if ($uid != 0 && $uid != 0) {
+    db_insert('ceo_wistia_progress')
+      ->fields(array(
+        'nid' => $nid,
+        'uid' => $uid,
+        'progress' => $progress,
+      ))
+      ->execute();
+  }
 }
 
 /**
