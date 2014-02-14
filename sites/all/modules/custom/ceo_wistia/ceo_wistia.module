@@ -7,6 +7,18 @@
  * @copyright (c) Copyright 2014 Spyder Byte Design LLC
  */
 
+function ceo_wistia_menu() {
+  $items['ceo_wistia/progress'] = array(
+    'title' => 'Title',
+    'description' => 'Description',
+    'access callback' => 'user_access',
+    'access arguments' => array('ceo_wistia'),
+    'page callback' => 'ceo_wistia_foo_page',
+    'page arguments' => array(),
+    'type' => MENU_CALLBACK,
+  );
+}
+
 /**
  * Implements hook_preprocess_field().
  */

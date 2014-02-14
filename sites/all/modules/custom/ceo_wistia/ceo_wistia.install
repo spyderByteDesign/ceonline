@@ -1,0 +1,49 @@
+<?php
+/**
+* @file
+* @copyright Copyright (c) 2014 Spyder Byte Design LLC.
+*/
+
+/**
+* Implements hook_schema().
+*/
+function ceo_wistia_schema() {
+  $schema = array();
+
+  $schema['ceo_wistia'] = array(
+    'description' => 'Long description',
+    //hook_schema_item_export
+
+    'fields' => array(
+      'uid' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user this record applies to.',
+      ),
+      'cid' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The course this record applies to.',
+      ),
+      'last_updated' => array(
+        'type' => 'datetime',
+        'mysql_type' => 'DATETIME',
+        'pgsql_type' => 'timestamp without time zone',
+        'sqlite_type' => 'VARCHAR',
+        'sqlsrv_type' => 'smalldatetime',
+        'description' => 'Last date that the user obtained a credit.',
+        'not null' => TRUE,
+        'sortable' => TRUE,
+        'views' => TRUE,
+      ),
+    ),
+  );
+
+  return $schema;
+}
