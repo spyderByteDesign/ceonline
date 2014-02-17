@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * @copyright Copyright (c) 2014 Palantir.net
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 
@@ -23,7 +23,7 @@ function ceo_certification_accreditation_menu() {
 
   // Callback for when a video is completed.
   // Args: UID, Video ID.
-  $items['ceo_certification_accreditation/completion/'] = array(
+  $items['ceo_certification_accreditation/completion'] = array(
     'title' => 'Video Completion Callback',
     'description' => 'Performs tasks related to video completion.',
     'access callback' => 'ceo_certification_completion_access',
@@ -88,7 +88,7 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
  *
  * @param int $user
  *   The user id of the user who needs crediting.
- * @param int $video
+ * @param int $video_node
  *   ID of the video being given credit for.
  * @param int $credits
  *   Credits received for the video.
@@ -96,26 +96,23 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
  * @return bool
  *   True if successful, false otherwise.
  */
-function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1) {
-  if (!empty($user) && !empty($video)) {
+function ceo_certification_add_credit($user = NULL, $video_node = NULL, $credits = 1) {
+  if (!empty($user) && !empty($video_node)) {
     // Check to be sure the user doesn't already have credit for this video.
     $query = db_select('ceo_certification_accreditation', 'ca')
       ->fields('ca', array('aid'))
       ->condition('ca.uid', $user)
-      ->condition('ca.vid', $video);
+      ->condition('ca.vid', $video_node);
     $results = $query->execute()->fetchAll();
     if (empty($results)) {
       // Get the training course a given video is part of.
-      $course = db_select('field_data_field_training_course', 'tc')
-        ->condition('entity_id', $video)
-        ->fields('tc', array('field_training_course_tid'));
-      $course_results = $course->execute()->fetchAssoc();
+      $course_results = ceo_certification_course_determination($video_node);
       if (!empty($course_results)) {
         // Give the user credit for completing the video.
         $insert = db_insert('ceo_certification_accreditation')
           ->fields(array(
             'uid' => $user,
-            'vid' => $video,
+            'vid' => $video_node,
             'cid' => $course_results['field_training_course_tid'],
             'credits' => $credits,
             'last_updated' => date('Y-m-d H-m-s'),
@@ -153,15 +150,87 @@ function ceo_certification_add_credit($user = NULL, $video = NULL, $credits = 1)
  *
  * @param int $user_id
  *   ID of user who completed the video.
- * @param int $video_id
+ * @param int $video_node_id
  *   The video that was completed.
+ *
+ * @return string
+ *   Success message or failure explanation.
  */
-function ceo_certification_completion($user_id = NULL, $video_id = NULL) {
-  if (!empty($user_id) && !empty($video_id)) {
+function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
+  if (!empty($user_id) && !empty($video_node_id)) {
+    // Determine the course a video is part of.
+    // Returns an array where key 'field_training_course_tid' is the course tid.
+    $course_results = ceo_certification_course_determination($video_node_id);
 
+    // Determine how many credits the user has for this course.
+    // Returns an array where key 'credits' is how many credits the user has.
+    $course_credits = ceo_certification_course_credit_check($user_id, $course_results['field_training_course_tid']);
 
+    if (!empty($course_credits['credits']) && $course_credits['credits'] >= 6) {
+      $path = 'node/add/eoc-evaluation/' . $video_node_id;
+      drupal_goto($path);
+    }
+    // If there are no credits found.
+    else {
+      return t("No credits found for this course/user combination.");
+    }
   }
+  // Missing URL parameter.
   else {
     return t("User or video ID not supplied.");
+  }
+}
+
+
+/**
+ * Determines the course a given video is a part of.
+ *
+ * @param int $video_node
+ *   The video ID you want the course of.
+ *
+ * @return array
+ *   Results of query in an associative array.
+ */
+function ceo_certification_course_determination($video_node) {
+  $course = db_select('field_data_field_training_course', 'tc')
+    ->condition('entity_id', $video_node)
+    ->fields('tc', array('field_training_course_tid'));
+  $course_results = $course->execute()->fetchAssoc();
+
+  return $course_results;
+}
+
+
+/**
+ * Determines how many credits a given user has for a given course.
+ *
+ * No "credit check" pun intended.
+ *
+ * @param int $uid
+ *   User ID.
+ * @param int $course_id
+ *   Course ID.
+ */
+function ceo_certification_course_credit_check($uid, $course_id) {
+  $query = db_select('ceo_certification_accreditation', 'ca')
+    ->fields('ca', array('credits'))
+    ->condition('uid', $uid)
+    ->condition('cid', $course_id);
+  $results = $query->execute()->fetchAssoc();
+
+  return $results;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function ceo_certification_accreditation_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'eoc_evaluation_node_form') {
+    $args = arg();
+    if (!empty($args['3'])) {
+      $form['field_training_course']["und"]['#default_value'] = $args['3'];
+      $form['field_training_course']['#disabled'] = TRUE;
+    }
   }
 }
