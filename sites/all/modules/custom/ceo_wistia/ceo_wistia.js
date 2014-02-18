@@ -17,7 +17,7 @@
 
   // Stops video every 900 seconds for user check.
   wistiaEmbed.bind("secondchange", function (s) {
-    if(s % 900 == 0 && s != 0) {
+    if(s % 2 == 0 && s != 0) {
       wistiaEmbed.pause();
       $('#dialog').show();
       modal();
