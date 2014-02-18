@@ -10,7 +10,7 @@
     // Drupal behavior placeholder.
   };
   // Drupal.settings.ceo_wistia.uid
-//  $('#dialog').hide();
+  $('#dialog').hide();
 
   // Resume video progress where user last left off.
 //  wistiaEmbed.time(900 * Drupal.settings.ceo_wistia.progress);
