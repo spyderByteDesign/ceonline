@@ -10,14 +10,14 @@
     // Drupal behavior placeholder.
   };
   // Drupal.settings.ceo_wistia.uid
-  $('#dialog').hide();
+//  $('#dialog').hide();
 
   // Resume video progress where user last left off.
-  wistiaEmbed.time(900 * Drupal.settings.ceo_wistia.progress);
+//  wistiaEmbed.time(900 * Drupal.settings.ceo_wistia.progress);
 
   // Stops video every 900 seconds for user check.
   wistiaEmbed.bind("secondchange", function (s) {
-    if(s % 2 == 0 && s != 0) {
+    if(s % 15 == 0 && s != 0) {
       wistiaEmbed.pause();
       $('#dialog').show();
       modal();
@@ -42,7 +42,7 @@
           width: 400,
           buttons: {
             Ok: function() {
-              window.location.href='/user';
+              window.location.href='/ceo_certification_accreditation/completion/' + Drupal.settings.ceo_wistia.uid  + '/' + Drupal.settings.ceo_wistia.nid;
             }
           }
         });
@@ -50,6 +50,8 @@
 
     });
   });
+
+
 
   function modal() {
     $( "#dialog" ).dialog({
