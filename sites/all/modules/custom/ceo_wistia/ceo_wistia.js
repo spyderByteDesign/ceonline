@@ -22,7 +22,7 @@
       $('#dialog').show();
       modal();
       $.ajax({
-        url: 'http://localhost/ce-online-training/ceonline-dev/ceo_wistia/progress/' + Drupal.settings.ceo_wistia.nid  + '/' + Drupal.settings.ceo_wistia.uid + '/' + Drupal.settings.ceo_wistia.progress
+        url: '/ceo_wistia/progress/' + Drupal.settings.ceo_wistia.nid  + '/' + Drupal.settings.ceo_wistia.uid + '/' + Drupal.settings.ceo_wistia.progress
       });
     }
   });
@@ -31,6 +31,25 @@
   // When video ends send user to grantCredit callback.
   wistiaEmbed.bind("end", function () {
     window.location.href == "http://newUrl.com";
+    $.ajax({
+      url: '/ceo_certification_accreditation/credit/' + Drupal.settings.ceo_wistia.uid  + '/' + Drupal.settings.ceo_wistia.nid,
+      success: function(data) {
+        $("#dialog").html("Congratulations! You've received a credit towards course completion.");
+        $( "#dialog" ).dialog({
+          modal: true,
+          resizable: false,
+          height: 240,
+          width: 400,
+          buttons: {
+            Ok: function() {
+              window.location.href='/user';
+            }
+          }
+        });
+      }
+
+    });
+    //ceo_certification_accreditation/credit
   });
 
   function modal() {
