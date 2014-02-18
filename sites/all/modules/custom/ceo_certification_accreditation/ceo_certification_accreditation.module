@@ -115,7 +115,7 @@ function ceo_certification_add_credit($user = NULL, $video_node = NULL, $credits
             'vid' => $video_node,
             'cid' => $course_results['field_training_course_tid'],
             'credits' => $credits,
-            'last_updated' => date('Y-m-d H-m-s'),
+            'credit_obtained' => date('Y-m-d H-m-s'),
           ))
           ->execute();
 
