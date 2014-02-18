@@ -6,22 +6,26 @@
 //      });
 //    }
   };
-
-  //Drupal.settings.ceo_wistia.uid
+  // Drupal.settings.ceo_wistia.uid
   $('#dialog').hide();
 
-  // Perform checks at second intervals.
+  // Resume video progress where user last left off.
+  wistiaEmbed.time(900 * Drupal.settings.ceo_wistia.progress);
+
+  // Stops video every 900 seconds for user check.
   wistiaEmbed.bind("secondchange", function (s) {
-    // Stop video every 900 seconds.
-    if(s % 2 == 0 && s != 0) {
+    if(s % 900 == 0 && s != 0) {
       wistiaEmbed.pause();
       $('#dialog').show();
       modal();
+      $.ajax({
+        url: 'http://localhost/ce-online-training/ceonline-dev/ceo_wistia/progress/' + Drupal.settings.ceo_wistia.nid  + '/' + Drupal.settings.ceo_wistia.uid + '/' + Drupal.settings.ceo_wistia.progress
+      });
     }
   });
 
 
-  // When video ends.
+  // When video ends send user to grantCredit callback.
   wistiaEmbed.bind("end", function () {
     window.location.href == "http://newUrl.com";
   });
@@ -35,6 +39,8 @@
       buttons: {
         Ok: function() {
           $( this ).dialog( "close" );
+          Drupal.settings.ceo_wistia.progress ++;
+          wistiaEmbed.play();
         }
       }
     });

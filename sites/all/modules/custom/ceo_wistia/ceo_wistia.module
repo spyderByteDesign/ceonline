@@ -54,7 +54,8 @@ function ceo_wistia_progress($nid = 0, $uid = 0, $progress = 0) {
 
   }
 
-  return 'test';
+  // We're done here. Nothing more to see...
+  drupal_exit();
 }
 
 /**
