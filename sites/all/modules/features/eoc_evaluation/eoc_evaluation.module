@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the End of Course Evaluation feature.
+ */
+
+include_once 'eoc_evaluation.features.inc';
