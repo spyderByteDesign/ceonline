@@ -100,7 +100,7 @@ function ceo_certification_accreditation_schema() {
         'default' => 0,
         'description' => 'The course this record applies to.',
       ),
-      'credit_obtained' => array(
+      'date_obtained' => array(
         'type' => 'datetime',
         'mysql_type' => 'DATETIME',
         'pgsql_type' => 'timestamp without time zone',

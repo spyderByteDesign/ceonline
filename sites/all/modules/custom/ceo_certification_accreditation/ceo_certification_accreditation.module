@@ -249,29 +249,61 @@ function ceo_certification_accreditation_form_alter(&$form, &$form_state, $form_
 function ceo_certification_accreditation_cron() {
   $update_status = variable_get('ceo_notify_usc', TRUE);
 
+
   // Every even week on saturday night, flag as needing update.
   if (date('W') % 2 == 0 && date('D') == 'Sat' && $update_status == FALSE) {
     variable_set('ceo_notify_usc', TRUE);
   }
-
   // Every even week on Sunday night, sent notifications and flag as sent.
-
+  if (date('W') % 2 == 0 && date('D') == 'Sun' && date('H') > 18 && $update_status == TRUE) {
+    // @todo Provide a better default!!
+    $usc_email = variable_get('ceo_usc_email', 'jryanwagner@gmail.com');
+    drupal_mail('ceo_certification_accreditation', 'usc_notification', $usc_email, 'und');
+    variable_set('ceo_notify_usc', TRUE);
+  }
 
 
 
 }
 
-//http://php.net/date
-/*
-|  DAY             |  MONTH           |   YEAR     |  TIME      |  OTHER
-+------------------+------------------+------------+------------+---------------
-|d|01-31           |m|01-12           |Y|DDDD      |H|00-24     |W|0-53 Week
-|j| 1-31           |n| 1-12           |o|DDDD ISO  |h| 0-24     |B|Swatch
-|S|st,nd,rd,th (j) |M|Jan-Dec         |y|  DD      |G|00-12     |u|MicroSec
-|D|Mon-Sun         |F|January-December|L|0,1  Leap |g| 0-12     |e|Timezone ID
-|l|Sunday-Saturday |t|28-31           | |          |m|00-59 Min |I|0-1 DayLightSave
-|M|1-7 (Mon-Sun)   |----------------- | |          |s|00-59 Sec |O|Diff to Greenwich +0200
-|W|0-6 (Sun-Sat)   |c|Y-m-d\TH:i:sP   | |          |a|am pm     |P|Diff to Greenwich +02:00
-|z|0-365           |r|D, d M Y H:i:s O| |          |A|AM PM     |T|Timezone abbrev EST MDT
-| |                |U|Unix timestamp  | |          | |          |Z|Timezone offset in seconds
-*/
+/**
+ * Implements hook_mail().
+ */
+function ceo_certification_accreditation_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'ceo_certification_accreditation_usc_notification':
+      $message['subject'] = 'Users who have recently been accredited.';
+      $message['body'][] = ceo_certification_accreditation_notification_generate();
+
+      break;
+  }
+}
+
+
+function ceo_certification_accreditation_notification_generate() {
+  $notification_query = db_select('ceo_certification_notification', 'cn')
+    ->condition('usc_notification_status', 0)
+    ->fields('cn', array('uid', 'cid'));
+  $notification_results = $notification_query->execute()->fetchAll();
+
+  foreach ($notification_results as $value) {
+    $user = user_load($value->uid);
+    $term = taxonomy_term_load($value->cid);
+    // @todo Remove this line!
+    print '';
+
+  }
+
+  $notifications_needed = $notification_results;
+  return $notifications_needed;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function ceo_certification_accreditation_page_build(&$page) {
+  // @todo Remove this line!
+  $foo = ceo_certification_accreditation_notification_generate();
+
+
+}
