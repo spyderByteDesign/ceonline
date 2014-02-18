@@ -8,11 +8,97 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function ceo_wistia_menu() {
+  $items['ceo_wistia/progress'] = array(
+    'title' => 'Wistia Video Progress',
+    'description' => 'Update a user\'s progress of a video.' ,
+    'access callback' => TRUE,
+    'page callback' => 'ceo_wistia_progress',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Saves current progress of a user for a video node.
+ */
+function ceo_wistia_progress($nid = 0, $uid = 0, $progress = 0) {
+  if ($nid != 0 && $uid != 0) {
+
+    // Check if any record exists for current user and nid.
+    $exists = _get_wistia_progress($uid, $nid);
+
+    if ($exists != null) {
+      // If record exists, update existing record.
+      db_update('ceo_wistia_progress')
+        ->fields(array(
+          'progress' => ($progress + 1),
+          'last_updated' => date('Y-m-d H:i:s'),
+        ))
+        ->condition('nid', $nid)
+        ->condition('uid', $uid)
+        ->execute();
+    } else {
+      // If record doesn't exists create a new record.
+      db_insert('ceo_wistia_progress')
+        ->fields(array(
+          'nid' => $nid,
+          'uid' => $uid,
+          'progress' => $progress,
+          'last_updated' => date('Y-m-d H:i:s'),
+        ))
+        ->execute();
+    }
+
+  }
+
+  // We're done here. Nothing more to see...
+  drupal_exit();
+}
+
+/**
+ * Returns the current progress of a user with uid on for a video node with nid.
+ */
+function _get_wistia_progress($uid, $nid) {
+  if ($nid != 0 && $uid != 0) {
+    $query = db_select('ceo_wistia_progress' , 'wp')
+      ->condition('wp.nid', $nid)
+      ->condition('wp.uid', $uid)
+      ->fields('wp', array('progress'));
+    $result = $query->execute();
+    $record = $result->fetchAssoc();
+
+
+    return $record['progress'];
+  }
+}
+
+/**
  * Implements hook_preprocess_field().
  */
 function ceo_wistia_preprocess_field(&$variables, $hook) {
   // Add javascript for Wistia javascript Player API.
   if($variables['element']['#field_name'] == 'field_video') {
-    drupal_add_js(drupal_get_path('module', 'ceo_wistia') . '/ceo_wistia.js');
+
+    global $user;
+    $uid = $user->uid;
+    $nid = $variables['element']['#object']->nid;
+
+    // Fetch current progress. If null set it to 0.
+    $progress = _get_wistia_progress($uid, $nid);
+    $progress = ($progress == null ? 0 : $progress);
+
+    $my_settings =  array(
+      'uid' => $uid,
+      'nid' => $nid,
+      'progress' => $progress,
+    );
+
+
+    drupal_add_library('system', 'ui.dialog');
+    drupal_add_js(drupal_get_path('module', 'ceo_wistia') . '/ceo_wistia.js', array('scope' => 'footer'));
+    drupal_add_js(array('ceo_wistia' => $my_settings), 'setting');
   }
 }
