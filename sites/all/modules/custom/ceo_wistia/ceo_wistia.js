@@ -1,10 +1,13 @@
+/**
+ * @file
+ * Integrates Wistia oembed fields with the Wistia player API.
+ *
+ * @copyright (c) Copyright 2014 Spyder Byte Design LLC
+ */
+
 (function ($) {
   Drupal.behaviors.ceo_custom = {
-//    attach: function (context, settings) {
-//      $(document).ready(function(){
-//        alert('jquery loaded');
-//      });
-//    }
+    // Drupal behavior placeholder.
   };
   // Drupal.settings.ceo_wistia.uid
   $('#dialog').hide();
