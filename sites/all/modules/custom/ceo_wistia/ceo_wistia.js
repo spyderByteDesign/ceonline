@@ -49,7 +49,6 @@
       }
 
     });
-    //ceo_certification_accreditation/credit
   });
 
   function modal() {
