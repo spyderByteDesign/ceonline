@@ -168,6 +168,13 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
 
     if (!empty($course_credits['credits']) && $course_credits['credits'] >= 6) {
       $path = 'node/add/eoc-evaluation/' . $video_node_id;
+      db_insert('ceo_certification_notification')
+        ->fields(array(
+          'uid' => $user_id,
+          'cid' => $course_results['field_training_course_tid'],
+          'credit_obtained' => date('Y-m-d H-m-s'),
+        ))
+        ->execute();
       drupal_goto($path);
     }
     // If there are no credits found.
@@ -234,3 +241,37 @@ function ceo_certification_accreditation_form_alter(&$form, &$form_state, $form_
     }
   }
 }
+
+
+/**
+ * Implements hook_cron().
+ */
+function ceo_certification_accreditation_cron() {
+  $update_status = variable_get('ceo_notify_usc', TRUE);
+
+  // Every even week on saturday night, flag as needing update.
+  if (date('W') % 2 == 0 && date('D') == 'Sat' && $update_status == FALSE) {
+    variable_set('ceo_notify_usc', TRUE);
+  }
+
+  // Every even week on Sunday night, sent notifications and flag as sent.
+
+
+
+
+}
+
+//http://php.net/date
+/*
+|  DAY             |  MONTH           |   YEAR     |  TIME      |  OTHER
++------------------+------------------+------------+------------+---------------
+|d|01-31           |m|01-12           |Y|DDDD      |H|00-24     |W|0-53 Week
+|j| 1-31           |n| 1-12           |o|DDDD ISO  |h| 0-24     |B|Swatch
+|S|st,nd,rd,th (j) |M|Jan-Dec         |y|  DD      |G|00-12     |u|MicroSec
+|D|Mon-Sun         |F|January-December|L|0,1  Leap |g| 0-12     |e|Timezone ID
+|l|Sunday-Saturday |t|28-31           | |          |m|00-59 Min |I|0-1 DayLightSave
+|M|1-7 (Mon-Sun)   |----------------- | |          |s|00-59 Sec |O|Diff to Greenwich +0200
+|W|0-6 (Sun-Sat)   |c|Y-m-d\TH:i:sP   | |          |a|am pm     |P|Diff to Greenwich +02:00
+|z|0-365           |r|D, d M Y H:i:s O| |          |A|AM PM     |T|Timezone abbrev EST MDT
+| |                |U|Unix timestamp  | |          | |          |Z|Timezone offset in seconds
+*/
