@@ -119,8 +119,8 @@ function ceo_certification_accreditation_preprocess_node(&$variables) {
         $results = $query->execute()->fetchAll();
         if (!empty($results)) {
           // Add all the values together.
-          foreach ($results as $value) {
-            $credits_obtained += $value->credits;
+          foreach ($results as $query_value) {
+            $credits_obtained += $query_value->credits;
           }
         }
         // Make the credits obtained available to other areas.
