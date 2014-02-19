@@ -273,37 +273,58 @@ function ceo_certification_accreditation_mail($key, &$message, $params) {
   switch ($key) {
     case 'ceo_certification_accreditation_usc_notification':
       $message['subject'] = 'Users who have recently been accredited.';
-      $message['body'][] = ceo_certification_accreditation_notification_generate();
-
+      $message['body'][] = t('Attached are the students who have received
+        accreditation within the last two weeks. Thank you!');
+//      $file = ceo_certification_accreditation_notification_generate();
+      $file = file_load(22);
+      $message['files'][] = $file;
       break;
   }
 }
 
 
 function ceo_certification_accreditation_notification_generate() {
+  $notifications_needed = array(
+    'User Name',
+    'User ID on Site',
+    'Course Passed',
+    'Date Completed',
+  );
+  $output = implode(',', $notifications_needed) . "\r\n";
   $notification_query = db_select('ceo_certification_notification', 'cn')
     ->condition('usc_notification_status', 0)
-    ->fields('cn', array('uid', 'cid'));
+    ->fields('cn', array('uid', 'cid', 'date_obtained'));
   $notification_results = $notification_query->execute()->fetchAll();
 
   foreach ($notification_results as $value) {
+    $row = array();
     $user = user_load($value->uid);
     $term = taxonomy_term_load($value->cid);
-    // @todo Remove this line!
-    print '';
+
+    $row[] = $user->field_first_name['und']['0']['value'] . ' '
+      . $user->field_middle_name['und']['0']['value'] . ' '
+      . $user->field_last_name['und']['0']['value'];
+    $row[] = $user->uid;
+    $row[] = $term->name;
+    $row[] = $value->date_obtained;
+
+    $output .= implode(',', $row) . "\r\n";
 
   }
 
-  $notifications_needed = $notification_results;
-  return $notifications_needed;
+  $file_path = 'accreditation_exports/' . date('m-d-Y') . '_accredited_users.csv';
+  $destination = 'public://' . $file_path;
+
+  $file = file_save_data($output, $destination, FILE_EXISTS_RENAME);
+
+  return $file;
 }
 
 /**
  * Implements hook_page_build().
  */
 function ceo_certification_accreditation_page_build(&$page) {
-  // @todo Remove this line!
-  $foo = ceo_certification_accreditation_notification_generate();
-
+  $usc_email = variable_get('ceo_usc_email', 'jryanwagner00@gmail.com');
+  drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und');
 
 }
