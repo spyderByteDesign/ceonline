@@ -276,7 +276,7 @@ function ceo_certification_accreditation_mail($key, &$message, $params) {
       $message['body'][] = t('Attached are the students who have received
         accreditation within the last two weeks. Thank you!');
 //      $file = ceo_certification_accreditation_notification_generate();
-      $file = file_load(22);
+      $file = file_load(7);
       $message['files'][] = $file;
       break;
   }
@@ -324,7 +324,7 @@ function ceo_certification_accreditation_notification_generate() {
  * Implements hook_page_build().
  */
 function ceo_certification_accreditation_page_build(&$page) {
-  $usc_email = variable_get('ceo_usc_email', 'jryanwagner00@gmail.com');
+  $usc_email = variable_get('ceo_usc_email', 'aczietlow@gmail.com');
   drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und');
 
 }
