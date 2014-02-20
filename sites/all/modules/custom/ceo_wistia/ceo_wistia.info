@@ -2,3 +2,4 @@ name = CEOnline Wistia Integration
 description = Integrates Wistia oembed links with the player API
 core = 7.x
 package = CEO Custom
+dependencies[] = jquery_update
