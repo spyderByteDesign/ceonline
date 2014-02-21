@@ -186,15 +186,8 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
     // Returns an array where key 'credits' is how many credits the user has.
     $course_credits = ceo_certification_course_credit_check($user_id, $course_results['field_training_course_tid']);
 
-    if (!empty($course_credits['credits']) && $course_credits['credits'] <= 6) {
-      $path = 'node/add/eoc-evaluation/' . $video_node_id;
-      db_insert('ceo_certification_notification')
-        ->fields(array(
-          'uid' => $user_id,
-          'cid' => $course_results['field_training_course_tid'],
-          'date_obtained' => date('Y-m-d H-m-s'),
-        ))
-        ->execute();
+    if (!empty($course_credits['credits']) && $course_credits['credits'] >= 6) {
+      $path = 'node/add/eoc-evaluation/' . $course_results['field_training_course_tid'];
       drupal_goto($path);
     }
     // If there are no credits found.
@@ -337,4 +330,21 @@ function ceo_certification_accreditation_notification_generate() {
   return $file;
 }
 
+
+/**
+ * Implements hook_node_insert().
+ */
+function ceo_certification_accreditation_node_insert($node) {
+  // On completion of the end of course test, file that the user has credit
+  // for the course.
+  if ($node->type == 'eoc_evaluation') {
+    db_insert('ceo_certification_notification')
+      ->fields(array(
+        'uid' => $node->uid,
+        'cid' => $node->field_training_course['und']['0']['tid'],
+        'date_obtained' => date('Y-m-d H-m-s'),
+      ))
+      ->execute();
+  }
+}
 
