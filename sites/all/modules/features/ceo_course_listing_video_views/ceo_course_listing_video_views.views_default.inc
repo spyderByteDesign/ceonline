@@ -88,6 +88,9 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['links'] = FALSE;
@@ -98,6 +101,14 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Sort criterion: Content: Course (field_training_course) */
+  $handler->display->display_options['sorts']['field_training_course_tid']['id'] = 'field_training_course_tid';
+  $handler->display->display_options['sorts']['field_training_course_tid']['table'] = 'field_data_field_training_course';
+  $handler->display->display_options['sorts']['field_training_course_tid']['field'] = 'field_training_course_tid';
+  /* Sort criterion: Content: Course Order (field_course_order) */
+  $handler->display->display_options['sorts']['field_course_order_value']['id'] = 'field_course_order_value';
+  $handler->display->display_options['sorts']['field_course_order_value']['table'] = 'field_data_field_course_order';
+  $handler->display->display_options['sorts']['field_course_order_value']['field'] = 'field_course_order_value';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -140,6 +151,12 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Course Videos';
   $handler->display->display_options['menu']['name'] = 'main-menu';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $export['course_videos'] = $view;
 
   return $export;

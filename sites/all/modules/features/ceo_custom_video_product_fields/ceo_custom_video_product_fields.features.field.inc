@@ -1080,6 +1080,99 @@ function ceo_custom_video_product_fields_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-training_video-field_video'.
+  $fields['node-training_video-field_video'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_video',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'training_video',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file_entity',
+          'settings' => array(
+            'file_view_mode' => 'default',
+          ),
+          'type' => 'file_rendered',
+          'weight' => '3',
+        ),
+        'product_list' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'fences_wrapper' => '',
+      'field_name' => 'field_video',
+      'label' => 'Video',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'mp4',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'media',
+        'settings' => array(
+          'allowed_schemes' => array(
+            'oembed' => 'oembed',
+            'private' => 0,
+            'public' => 0,
+          ),
+          'allowed_types' => array(
+            'audio' => 0,
+            'default' => 0,
+            'image' => 0,
+            'video' => 'video',
+          ),
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'media_generic',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'node-training_video-title_field'.
   $fields['node-training_video-title_field'] = array(
     'field_config' => array(
@@ -1511,6 +1604,96 @@ function ceo_custom_video_product_fields_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-video_product_type-field_video_teaser'.
+  $fields['node-video_product_type-field_video_teaser'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_video_teaser',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'video_product_type',
+      'deleted' => '0',
+      'description' => 'Please provide a short teaser for the course video.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => 8,
+        ),
+        'product_list' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'fences_wrapper' => '',
+      'field_name' => 'field_video_teaser',
+      'label' => 'Video Teaser',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'txt',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'media',
+        'settings' => array(
+          'allowed_schemes' => array(
+            'oembed' => 'oembed',
+            'public' => 0,
+          ),
+          'allowed_types' => array(
+            'audio' => 0,
+            'default' => 0,
+            'image' => 0,
+            'video' => 'video',
+          ),
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'media_generic',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'node-video_product_type-title_field'.
   $fields['node-video_product_type-title_field'] = array(
     'field_config' => array(
@@ -1610,12 +1793,15 @@ function ceo_custom_video_product_fields_field_default_fields() {
   t('Description');
   t('How many credits are required to complete this course?');
   t('In video lists for this course, what position should this video appear in? One will appear at the top of lists, with higher numbers coming after. If two videos have the same position, they will sort alphabetically. ');
+  t('Please provide a short teaser for the course video.');
   t('Price');
   t('Product is a Package');
   t('Product variations');
   t('Provide up to six related products here, separated by commas. Auto-complete is enabled and will help if you don\'t know the full name of the product. ');
   t('Related Products');
   t('Title');
+  t('Video');
+  t('Video Teaser');
   t('Videos');
   t('Which training course is this a part of?');
 
