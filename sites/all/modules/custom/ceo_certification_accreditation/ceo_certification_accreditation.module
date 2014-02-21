@@ -192,7 +192,7 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
         ->fields(array(
           'uid' => $user_id,
           'cid' => $course_results['field_training_course_tid'],
-          'credit_obtained' => date('Y-m-d H-m-s'),
+          'date_obtained' => date('Y-m-d H-m-s'),
         ))
         ->execute();
       drupal_goto($path);
