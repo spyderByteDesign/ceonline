@@ -48,7 +48,7 @@ function ceo_certification_accreditation_menu() {
  */
 function _test_page() {
 
-  $file = file_load(7);
+  $file = ceo_certification_accreditation_notification_generate();
   $params['files'][] = $file;
   $usc_email = variable_get('ceo_usc_email', 'aczietlow@gmail.com');
   drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
@@ -295,9 +295,6 @@ function ceo_certification_accreditation_mail($key, &$message, $params) {
       $message['subject'] = 'Users who have recently been accredited.';
       $message['body'][] = t('Attached are the students who have received
         accreditation within the last two weeks. Thank you!');
-//      $file = ceo_certification_accreditation_notification_generate();
-//      $file = file_load(7);
-//      $message['files'][] = $file;
       break;
   }
 }
