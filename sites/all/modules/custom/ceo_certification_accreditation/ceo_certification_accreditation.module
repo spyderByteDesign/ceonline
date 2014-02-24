@@ -31,7 +31,27 @@ function ceo_certification_accreditation_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  // @TODO delete me
+  $items['debug/mail'] = array(
+    'title' => 'Debug mail',
+    'description' => 'Debugs the mail functionality.',
+    'access callback' => true,
+    'page callback' => '_test_page',
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
+}
+
+/**
+ * @TODO delete me.
+ */
+function _test_page() {
+
+  $file = file_load(7);
+  $params['files'][] = $file;
+  $usc_email = variable_get('ceo_usc_email', 'aczietlow@gmail.com');
+  drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
 }
 
 /**
@@ -168,6 +188,13 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
 
     if (!empty($course_credits['credits']) && $course_credits['credits'] <= 6) {
       $path = 'node/add/eoc-evaluation/' . $video_node_id;
+      db_insert('ceo_certification_notification')
+        ->fields(array(
+          'uid' => $user_id,
+          'cid' => $course_results['field_training_course_tid'],
+          'credit_obtained' => date('Y-m-d H-m-s'),
+        ))
+        ->execute();
       drupal_goto($path);
     }
     // If there are no credits found.
@@ -234,3 +261,83 @@ function ceo_certification_accreditation_form_alter(&$form, &$form_state, $form_
     }
   }
 }
+
+
+/**
+ * Implements hook_cron().
+ */
+function ceo_certification_accreditation_cron() {
+  $update_status = variable_get('ceo_notify_usc', TRUE);
+
+
+  // Every even week on saturday night, flag as needing update.
+  if (date('W') % 2 == 0 && date('D') == 'Sat' && $update_status == FALSE) {
+    variable_set('ceo_notify_usc', TRUE);
+  }
+  // Every even week on Sunday night, sent notifications and flag as sent.
+  if (date('W') % 2 == 0 && date('D') == 'Sun' && date('H') > 18 && $update_status == TRUE) {
+    // @todo Provide a better default!!
+    $usc_email = variable_get('ceo_usc_email', 'jryanwagner@gmail.com');
+    drupal_mail('ceo_certification_accreditation', 'usc_notification', $usc_email, 'und');
+    variable_set('ceo_notify_usc', TRUE);
+  }
+
+
+
+}
+
+/**
+ * Implements hook_mail().
+ */
+function ceo_certification_accreditation_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'ceo_certification_accreditation_usc_notification':
+      $message['subject'] = 'Users who have recently been accredited.';
+      $message['body'][] = t('Attached are the students who have received
+        accreditation within the last two weeks. Thank you!');
+//      $file = ceo_certification_accreditation_notification_generate();
+//      $file = file_load(7);
+//      $message['files'][] = $file;
+      break;
+  }
+}
+
+
+function ceo_certification_accreditation_notification_generate() {
+  $notifications_needed = array(
+    'User Name',
+    'User ID on Site',
+    'Course Passed',
+    'Date Completed',
+  );
+  $output = implode(',', $notifications_needed) . "\r\n";
+  $notification_query = db_select('ceo_certification_notification', 'cn')
+    ->condition('usc_notification_status', 0)
+    ->fields('cn', array('uid', 'cid', 'date_obtained'));
+  $notification_results = $notification_query->execute()->fetchAll();
+
+  foreach ($notification_results as $value) {
+    $row = array();
+    $user = user_load($value->uid);
+    $term = taxonomy_term_load($value->cid);
+
+    $row[] = $user->field_first_name['und']['0']['value'] . ' '
+      . $user->field_middle_name['und']['0']['value'] . ' '
+      . $user->field_last_name['und']['0']['value'];
+    $row[] = $user->uid;
+    $row[] = $term->name;
+    $row[] = $value->date_obtained;
+
+    $output .= implode(',', $row) . "\r\n";
+
+  }
+
+  $file_path = 'accreditation_exports/' . date('m-d-Y') . '_accredited_users.csv';
+  $destination = 'public://' . $file_path;
+
+  $file = file_save_data($output, $destination, FILE_EXISTS_RENAME);
+
+  return $file;
+}
+
+

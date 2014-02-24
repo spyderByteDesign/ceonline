@@ -5,14 +5,20 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function ceo_certification_accreditation_install() {
+  variable_set('ceo_notify_usc', TRUE);
+}
+
+/**
  * Implements hook_schema().
  */
 function ceo_certification_accreditation_schema() {
   $schema = array();
 
   $schema['ceo_certification_accreditation'] = array(
-    'description' => 'Long description',
-    //hook_schema_item_export
+    'description' => 'User credit for course completion',
 
     'fields' => array(
       'aid' => array(
@@ -62,6 +68,56 @@ function ceo_certification_accreditation_schema() {
         'not null' => TRUE,
         'sortable' => TRUE,
         'views' => TRUE,
+      ),
+    ),
+    'primary key' => array('aid'),
+
+  );
+
+  $schema['ceo_certification_notification'] = array(
+    'description' => 'Users who have completed courses that require USC notification.',
+
+    'fields' => array(
+      'aid' => array(
+        'type' => 'serial',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique Ceo_certification_notification ID.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user this record applies to.',
+      ),
+      'cid' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The course this record applies to.',
+      ),
+      'date_obtained' => array(
+        'type' => 'datetime',
+        'mysql_type' => 'DATETIME',
+        'pgsql_type' => 'timestamp without time zone',
+        'sqlite_type' => 'VARCHAR',
+        'sqlsrv_type' => 'smalldatetime',
+        'description' => 'Date and time the credit was obtained.',
+        'not null' => TRUE,
+        'sortable' => TRUE,
+        'views' => TRUE,
+      ),
+      'usc_notification_status' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Whether or not USC has been notified. 1 if yes, 0 if no.',
       ),
     ),
     'primary key' => array('aid'),
