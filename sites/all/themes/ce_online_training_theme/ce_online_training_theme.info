@@ -9,7 +9,7 @@ version = '1.x'
 ;custom stylesheets
 css[custom.css][name] = custom theme global style.
 css[custom.css][description] = This file holds all the globally active custom CSS of CEonline theme.
-css[custom.css][options][weight] = 12
+css[custom.css][options][weight] = 59
 
 regions[page_top] = 'Page Top'
 regions[page_bottom] = 'Page Bottom'

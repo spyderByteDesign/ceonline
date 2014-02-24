@@ -28,7 +28,6 @@
 */
 .navigation {
   margin: 0;
-  /* Main menu */
   /* Secondary menu */ }
   .navigation .primary-menu ul,
   .navigation .second-menu ul {
@@ -47,15 +46,6 @@
       -khtml-border-radius: 0 8px 8px 0;
       border-radius: 0 8px 8px 0;
       /* LTR */ }
-  .navigation .primary-menu ul li a {
-    background-color: #000000;
-    color: #ffffff; }
-    .navigation .primary-menu ul li a.active, .navigation .primary-menu ul li a:hover {
-      background-color: #ffffff; }
-    .navigation .primary-menu ul li a.active {
-      color: #2698F2; }
-    .navigation .primary-menu ul li a:hover {
-      color: #000000; }
   .navigation .second-menu ul li a {
     background-color: #ffffff;
     color: #000000; }

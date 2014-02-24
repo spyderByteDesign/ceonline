@@ -43,22 +43,7 @@
       }
     }
   }
-  /* Main menu */
-  .primary-menu ul li a {
-    background-color: #000000;
-    color: #ffffff;
 
-    &.active,
-    &:hover {
-      background-color: #ffffff;
-    }
-    &.active {
-      color: #2698F2;
-    }
-    &:hover {
-      color: #000000;
-    }
-  }
 /* Secondary menu */
   .second-menu ul li a {
     background-color: #ffffff;
