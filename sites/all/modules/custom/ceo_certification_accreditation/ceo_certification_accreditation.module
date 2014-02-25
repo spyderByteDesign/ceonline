@@ -31,27 +31,30 @@ function ceo_certification_accreditation_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  // @TODO delete me
-  $items['debug/mail'] = array(
-    'title' => 'Debug mail',
-    'description' => 'Debugs the mail functionality.',
-    'access callback' => true,
-    'page callback' => '_test_page',
-    'type' => MENU_CALLBACK,
+  // Page for configuring the module.
+  $items['admin/config/system/ceo-certification-administration'] = array(
+    'title' => 'CEO Administration Settings',
+    'description' => 'Settings for the certification/accreditation module.',
+    'access arguments' => array('ceo_certification_completion_administration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ceo_certification_accreditation_administration_form'),
   );
-
   return $items;
 }
 
-/**
- * @TODO delete me.
- */
-function _test_page() {
 
-  $file = ceo_certification_accreditation_notification_generate();
-  $params['files'][] = $file;
-  $usc_email = variable_get('ceo_usc_email', 'aczietlow@gmail.com');
-  drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
+/**
+ * Implements hook_permission().
+ */
+function ceo_certification_accreditation_permission() {
+  $return = array();
+
+  $return['ceo_certification_completion_administration'] = array(
+    'title' => t('CEO Certification Administration'),
+    'description' => t('Administer settings for the certification/accreditation module'),
+  );
+
+  return $return;
 }
 
 /**
@@ -277,8 +280,9 @@ function ceo_certification_accreditation_cron() {
   // Every even week on Sunday night, sent notifications and flag as sent.
   if (date('W') % 2 == 0 && date('D') == 'Sun' && date('H') > 18 && $update_status == TRUE) {
     // @todo Provide a better default!!
-    $usc_email = variable_get('ceo_usc_email', 'jryanwagner@gmail.com');
-    drupal_mail('ceo_certification_accreditation', 'usc_notification', $usc_email, 'und');
+    $usc_email = variable_get('ceo_alert_destination', 'test@domain.com');
+    $params['files'][] = _ceo_certification_accreditation_notification_generate();
+    drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
     variable_set('ceo_notify_usc', TRUE);
   }
 
@@ -300,7 +304,10 @@ function ceo_certification_accreditation_mail($key, &$message, $params) {
 }
 
 
-function ceo_certification_accreditation_notification_generate() {
+/**
+ * Generates the file which is included in the notification email.
+ */
+function _ceo_certification_accreditation_notification_generate() {
   $notifications_needed = array(
     'User Name',
     'User ID on Site',
@@ -338,3 +345,33 @@ function ceo_certification_accreditation_notification_generate() {
 }
 
 
+/**
+ * CEO Certification/Administration Form.
+ */
+function ceo_certification_accreditation_administration_form($form, &$form_state) {
+  $form['ceo_alert_destination'] = array(
+    '#type' => 'textfield',
+    '#required' => FALSE,
+    '#title' => t('Alert Email Address'),
+    '#description' => t('Please provide an email address to send alerts to.'),
+    '#default_value' => variable_get('ceo_alert_destination', 'test@domain.com'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Validate callback for CEO Certification/Administration Form.
+ */
+function ceo_certification_accreditation_administration_form_validate(&$form, &$form_state) {
+  $email_validation = filter_var($form_state['values']['ceo_alert_destination'], FILTER_VALIDATE_EMAIL);
+  if ($email_validation === FALSE) {
+    form_set_error('ceo_alert_destination', t('Please provide a valid email address'));
+  }
+}
+
+/**
+ * Submit callback for CEO Certification/Administration Form.
+ */
+function ceo_certification_accreditation_administration_form_submit(&$form, &$form_state) {
+}
