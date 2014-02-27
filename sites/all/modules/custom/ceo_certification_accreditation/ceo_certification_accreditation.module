@@ -189,7 +189,7 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
     // Returns an integer of how many credits a user has.
     $course_credits = ceo_certification_course_credit_check($user_id, $course_results['field_training_course_tid']);
 
-    if (!empty($course_credits['credits']) && (int) $course_credits >= 6) {
+    if (!empty($course_credits) && (int) $course_credits >= 6) {
       $path = 'node/add/eoc-evaluation/' . $course_results['field_training_course_tid'];
       drupal_goto($path);
     }
