@@ -68,7 +68,7 @@ function ceo_certification_accreditation_schema() {
         'default' => 0,
         'description' => 'Number of credits the user has for this class.',
       ),
-      'credit_obtained' => array(
+      'date_obtained' => array(
         'type' => 'datetime',
         'mysql_type' => 'DATETIME',
         'pgsql_type' => 'timestamp without time zone',
