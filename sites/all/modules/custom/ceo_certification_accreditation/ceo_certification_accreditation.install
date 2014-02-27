@@ -9,7 +9,17 @@
  */
 function ceo_certification_accreditation_install() {
   variable_set('ceo_notify_usc', TRUE);
+  variable_set('ceo_alert_destination', 'test@domain.com');
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function ceo_certification_accreditation_uninstall() {
+  variable_del('ceo_notify_usc');
+  variable_del('ceo_alert_destination');
+}
+
 
 /**
  * Implements hook_schema().
