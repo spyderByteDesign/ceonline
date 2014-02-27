@@ -39,7 +39,28 @@ function ceo_certification_accreditation_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ceo_certification_accreditation_administration_form'),
   );
+
+  // @TODO delete me
+  $items['debug/mail'] = array(
+    'title' => 'Debug mail',
+    'description' => 'Debugs the mail functionality.',
+    'access callback' => true,
+    'page callback' => '_test_page',
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
+}
+
+/**
+ * @TODO delete me.
+ */
+function _test_page() {
+
+  $file = file_load(7);
+  $params['files'][] = $file;
+  $usc_email = variable_get('ceo_usc_email', 'aczietlow@gmail.com');
+  drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
 }
 
 
