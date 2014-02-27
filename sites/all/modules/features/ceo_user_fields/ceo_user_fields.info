@@ -1,0 +1,13 @@
+name = CEO User Fields
+description = Provides user fields.
+core = 7.x
+package = ceo_custom
+version = 7.x-1.0
+project = ceo_user_fields
+dependencies[] = features
+dependencies[] = field_sql_storage
+dependencies[] = text
+features[features_api][] = api:1
+features[field][] = user-user-field_first_name
+features[field][] = user-user-field_last_name
+features[field][] = user-user-field_middle_name
