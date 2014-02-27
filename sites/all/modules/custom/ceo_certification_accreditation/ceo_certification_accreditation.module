@@ -40,27 +40,7 @@ function ceo_certification_accreditation_menu() {
     'page arguments' => array('ceo_certification_accreditation_administration_form'),
   );
 
-  // @TODO delete me
-  $items['debug/mail'] = array(
-    'title' => 'Debug mail',
-    'description' => 'Debugs the mail functionality.',
-    'access callback' => true,
-    'page callback' => '_test_page',
-    'type' => MENU_CALLBACK,
-  );
-
   return $items;
-}
-
-/**
- * @TODO delete me.
- */
-function _test_page() {
-
-  $file = _ceo_certification_accreditation_notification_generate();
-  $params['files'][] = $file;
-  $usc_email = variable_get('ceo_alert_destination', 'aczietlow@gmail.com');
-  drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
 }
 
 
@@ -294,7 +274,6 @@ function ceo_certification_accreditation_cron() {
   }
   // Every even week on Sunday night, sent notifications and flag as sent.
   if (date('W') % 2 == 0 && date('D') == 'Sun' && date('H') > 18 && $update_status == TRUE) {
-    // @todo Provide a better default!!
     $usc_email = variable_get('ceo_alert_destination', 'test@domain.com');
     $params['files'][] = _ceo_certification_accreditation_notification_generate();
     drupal_mail('ceo_certification_accreditation', 'ceo_certification_accreditation_usc_notification', $usc_email, 'und', $params);
@@ -323,6 +302,7 @@ function ceo_certification_accreditation_mail($key, &$message, $params) {
  * Generates the file which is included in the notification email.
  */
 function _ceo_certification_accreditation_notification_generate() {
+  // Headers for the CSV file.
   $notifications_needed = array(
     'User Name',
     'User ID on Site',
@@ -330,16 +310,19 @@ function _ceo_certification_accreditation_notification_generate() {
     'Date Completed',
   );
   $output = implode(',', $notifications_needed) . "\r\n";
+  // Get the users who have completed a course.
   $notification_query = db_select('ceo_certification_notification', 'cn')
     ->condition('usc_notification_status', 0)
     ->fields('cn', array('uid', 'cid', 'date_obtained'));
   $notification_results = $notification_query->execute()->fetchAll();
 
+  // Iterate over the users and turn it into something a CSV can receive.
   foreach ($notification_results as $value) {
     $row = array();
     $user = user_load($value->uid);
     $term = taxonomy_term_load($value->cid);
 
+    // Turn name fields into one line, and compile everything into an array.
     $row[] = $user->field_first_name['und']['0']['value'] . ' '
       . $user->field_middle_name['und']['0']['value'] . ' '
       . $user->field_last_name['und']['0']['value'];
@@ -347,10 +330,12 @@ function _ceo_certification_accreditation_notification_generate() {
     $row[] = $term->name;
     $row[] = $value->date_obtained;
 
+    // Implode the array into a CSV string.
     $output .= implode(',', $row) . "\r\n";
 
   }
 
+  // Make sure the directories exist and are writable.
   $directory = 'public://accreditation_exports';
   file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
   file_prepare_directory($directory, FILE_MODIFY_PERMISSIONS);
@@ -358,7 +343,14 @@ function _ceo_certification_accreditation_notification_generate() {
   $file_path = 'accreditation_exports/' . date('m-d-Y') . '_accredited_users.csv';
   $destination = 'public://' . $file_path;
 
+  // Save the new CSV.
   $file = file_save_data($output, $destination, FILE_EXISTS_RENAME);
+
+  // Update the notification status to sent.
+  db_update('ceo_certification_notification')
+    ->condition('usc_notification_status', 0)
+    ->fields(array('usc_notification_status' => 1))
+    ->execute();
 
   return $file;
 }
@@ -411,3 +403,4 @@ function ceo_certification_accreditation_administration_form_validate(&$form, &$
  */
 function ceo_certification_accreditation_administration_form_submit(&$form, &$form_state) {
 }
+
