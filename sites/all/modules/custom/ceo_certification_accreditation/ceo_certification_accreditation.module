@@ -195,7 +195,7 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
     }
     // If there are no credits found.
     else {
-      $output = "No credits found for course " . $course_results['field_training_course_tid'] . " on user " . $user_id;
+      $output = $course_credits['credits'] . " credits found for course " . $course_results['field_training_course_tid'] . " on user " . $user_id;
       return t($output);
     }
   }
