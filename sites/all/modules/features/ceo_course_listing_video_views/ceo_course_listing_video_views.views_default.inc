@@ -156,6 +156,8 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h2';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Field: Content: Course */
   $handler->display->display_options['fields']['field_training_course']['id'] = 'field_training_course';
   $handler->display->display_options['fields']['field_training_course']['table'] = 'field_data_field_training_course';
@@ -176,11 +178,19 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['fields']['body']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['body']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['body']['field_api_classes'] = TRUE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Course Order (field_course_order) */
+  $handler->display->display_options['sorts']['field_course_order_value']['id'] = 'field_course_order_value';
+  $handler->display->display_options['sorts']['field_course_order_value']['table'] = 'field_data_field_course_order';
+  $handler->display->display_options['sorts']['field_course_order_value']['field'] = 'field_course_order_value';
+  $handler->display->display_options['sorts']['field_course_order_value']['order'] = 'DESC';
+  /* Contextual filter: Content: Course (field_training_course) */
+  $handler->display->display_options['arguments']['field_training_course_tid']['id'] = 'field_training_course_tid';
+  $handler->display->display_options['arguments']['field_training_course_tid']['table'] = 'field_data_field_training_course';
+  $handler->display->display_options['arguments']['field_training_course_tid']['field'] = 'field_training_course_tid';
+  $handler->display->display_options['arguments']['field_training_course_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_training_course_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_training_course_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_training_course_tid']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -235,6 +245,7 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h2';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Field: Content: Course */
   $handler->display->display_options['fields']['field_training_course']['id'] = 'field_training_course';
@@ -326,6 +337,65 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Course Videos */
+  $handler = $view->new_display('block', 'Course Videos', 'block_1');
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Content: Referenced products */
+  $handler->display->display_options['relationships']['field_product_product_id']['id'] = 'field_product_product_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['table'] = 'field_data_field_product';
+  $handler->display->display_options['relationships']['field_product_product_id']['field'] = 'field_product_product_id';
+  /* Relationship: Content: Course (field_training_course) */
+  $handler->display->display_options['relationships']['field_training_course_tid']['id'] = 'field_training_course_tid';
+  $handler->display->display_options['relationships']['field_training_course_tid']['table'] = 'field_data_field_training_course';
+  $handler->display->display_options['relationships']['field_training_course_tid']['field'] = 'field_training_course_tid';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h2';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: Content: Video */
+  $handler->display->display_options['fields']['field_video']['id'] = 'field_video';
+  $handler->display->display_options['fields']['field_video']['table'] = 'field_data_field_video';
+  $handler->display->display_options['fields']['field_video']['field'] = 'field_video';
+  $handler->display->display_options['fields']['field_video']['label'] = '';
+  $handler->display->display_options['fields']['field_video']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_video']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_video']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_video']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_video']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_video']['type'] = 'file_rendered';
+  $handler->display->display_options['fields']['field_video']['settings'] = array(
+    'file_view_mode' => 'media_preview',
+  );
+  $handler->display->display_options['fields']['field_video']['field_api_classes'] = TRUE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Course Order (field_course_order) */
+  $handler->display->display_options['sorts']['field_course_order_value']['id'] = 'field_course_order_value';
+  $handler->display->display_options['sorts']['field_course_order_value']['table'] = 'field_data_field_course_order';
+  $handler->display->display_options['sorts']['field_course_order_value']['field'] = 'field_course_order_value';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Course (field_training_course) */
+  $handler->display->display_options['arguments']['field_training_course_tid']['id'] = 'field_training_course_tid';
+  $handler->display->display_options['arguments']['field_training_course_tid']['table'] = 'field_data_field_training_course';
+  $handler->display->display_options['arguments']['field_training_course_tid']['field'] = 'field_training_course_tid';
+  $handler->display->display_options['arguments']['field_training_course_tid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_training_course_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_training_course_tid']['default_argument_options']['argument'] = 'South Carolina Accreditation course';
+  $handler->display->display_options['arguments']['field_training_course_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_training_course_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_training_course_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_training_course_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_training_course_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_training_course_tid']['validate_options']['vocabularies'] = array(
+    'training_course' => 'training_course',
+  );
+  $handler->display->display_options['arguments']['field_training_course_tid']['validate_options']['type'] = 'convert';
   $export['course_videos'] = $view;
 
   return $export;
