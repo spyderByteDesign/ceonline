@@ -52,6 +52,7 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h2';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Field: Content: Credits Required */
   $handler->display->display_options['fields']['field_credits_required']['id'] = 'field_credits_required';
@@ -386,7 +387,7 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['arguments']['field_training_course_tid']['field'] = 'field_training_course_tid';
   $handler->display->display_options['arguments']['field_training_course_tid']['default_action'] = 'default';
   $handler->display->display_options['arguments']['field_training_course_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_training_course_tid']['default_argument_options']['argument'] = 'South Carolina Accreditation course';
+  $handler->display->display_options['arguments']['field_training_course_tid']['default_argument_options']['argument'] = 'South Carolina Accreditation';
   $handler->display->display_options['arguments']['field_training_course_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_training_course_tid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_training_course_tid']['summary_options']['items_per_page'] = '25';
