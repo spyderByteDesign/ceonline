@@ -1,15 +1,13 @@
-/* @override http://dev-ceonline.gotpantheon.com/sites/all/themes/ce_online_training_theme/css/custom.css?n1uipx */
+/*----- GLOBAL -----*/
 body {
   color: #90918e;
   font-family: Verdana, Geneva, sans-serif;
   background: white; }
 
-footer {
-  background-color: #90918e; }
-
 a {
   color: #fff; }
 
+/*----- HEADER -----*/
 .top-menu-links a {
   color: #90918e;
   line-height: inherit !important;
@@ -31,6 +29,16 @@ a {
   margin-bottom: 1.25rem;
   border: #d8d8d8 1px solid; }
 
+#main-menu {
+  display: inline-block;
+  margin: 20px; }
+
+/*----- FOOTER -----*/
+#zone-footer-wrapper {
+  background-color: #8f918d; }
+
+/*----- HOME -----*/
+/*----- COURSE LIST -----*/
 .view-course-listing .views-row {
   border-style: solid;
   border-width: 1px;
@@ -50,12 +58,5 @@ a {
 .oembed-title {
   display: none; }
 
-#main-menu {
-  display: inline-block;
-  margin: 20px; }
-
 #dialog {
   display: none; }
-
-#zone-footer-wrapper {
-  background-color: blue; }
