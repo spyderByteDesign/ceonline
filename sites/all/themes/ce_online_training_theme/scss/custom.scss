@@ -1,18 +1,15 @@
-/*----- GLOBAL -----*/
+/* @override http://dev-ceonline.gotpantheon.com/sites/all/themes/ce_online_training_theme/css/custom.css?n1xj17 */
 
+/*----- GLOBAL -----*/
 body {
   color: #90918e;
   font-family: Verdana, Geneva, sans-serif;
   background: white; }
 
-
-
 a {
   color: #fff; }
-
-
+ 
 /*----- HEADER -----*/
-
 .top-menu-links a {
   color: #90918e;
   line-height: inherit !important;
@@ -38,18 +35,75 @@ a {
   display: inline-block;
   margin: 20px; }
 
-/*----- FOOTER -----*/
-
-#zone-footer-wrapper {
-	background-color: #8f918d;
+#region-branding {
+	
 }
 
+/*----- FOOTER -----*/
+#zone-footer-wrapper {
+  background-color: #8f918d;
+	margin-top: 2em;
+	padding-top: 3em;
+	padding-bottom: 3em;
+}
+
+#zone-footer-wrapper ul.menu li {
+}
 
 /*----- HOME -----*/
 
+.region-menu-inner #block-imageblock-1 {
+	margin-top: 0;
+	margin-bottom: 3em;
+}
+
+.region-header-first-inner h2.block-title {
+	font-weight: normal;
+	font-style: normal;
+	font-size: 2em;
+	line-height: 1em;
+	margin-bottom: .25em;
+}
+
+.region-header-first-inner h6 {
+	font-weight: normal;
+	font-style: normal;
+	font-size: 1.6em;
+	color: #b70402;
+	margin-bottom: .5em;
+}
+
+.region-header-second-inner .block {
+	border-radius: 5px;
+	padding: 1em;
+	font-size: 1.4em;
+	line-height: 2em;
+	margin-bottom: 0 !important;
+}
+
+.region-header-second-inner .block ul {
+	margin-bottom: 0;
+}
+
+
+#zone-preface.zone.zone-preface {
+	border-top: 2px solid #e7e8e7;
+	padding-top: 3em;
+	margin-top: 3em;
+	text-align: center;
+}
+
+#zone-preface.zone.zone-preface h2.rtecenter {
+	font-weight: normal;
+	font-style: normal;
+}
+
+#zone-preface.zone.zone-preface img.media-image {
+	width: 200px !important;
+}
+
 
 /*----- COURSE LIST -----*/
-
 .view-course-listing .views-row {
   border-style: solid;
   border-width: 1px;
@@ -69,9 +123,5 @@ a {
 .oembed-title {
   display: none; }
 
-
-
 #dialog {
   display: none; }
-  
-  
