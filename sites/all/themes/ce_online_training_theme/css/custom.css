@@ -72,7 +72,19 @@ div input.form-submit:hover {
   color: #90918e; }
 
 .block-shopping-cart-block ul.links.inline {
-  background-color: #1dbed6 !important; }
+  background-color: #fff !important;
+  border-left: 2px solid #eef1ee; }
+
+.block-menu.block-menu-menu-user-menu ul.menu {
+  float: left !important; }
+
+.block-shopping-cart-block ul.links.inline:hover {
+  background-color: #fff !important;
+  border-left: 2px solid #eef1ee; }
+
+.block-shopping-cart-block ul.links.inline a:hover {
+  text-decoration: none !important;
+  color: #189fb3 !important; }
 
 .section-header #zone-user-wrapper.zone-wrapper.zone-user-wrapper {
   background-color: white;
@@ -80,6 +92,12 @@ div input.form-submit:hover {
 
 .section-header #zone-user-wrapper.zone-wrapper.zone-user-wrapper a {
   color: #1dbed6; }
+
+.section-header .line-item-quantity {
+  color: #1dbed6 !important; }
+
+.block-shopping-cart-block .content {
+  background-image: url("../images/picto_cart.png"); }
 
 /*----- FOOTER -----*/
 #zone-footer-wrapper {
