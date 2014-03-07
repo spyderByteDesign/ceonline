@@ -1,6 +1,7 @@
 <?php print $doctype; ?>
 <html lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf->version . $rdf->namespaces; ?>>
 <head<?php print $rdf->profile; ?>>
+  <!-- insert tracking scripts here -->
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>  
   <?php print $styles; ?>
