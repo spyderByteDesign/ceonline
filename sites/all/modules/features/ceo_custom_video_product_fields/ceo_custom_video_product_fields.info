@@ -35,6 +35,7 @@ features[field][] = commerce_product-video_product_type-commerce_price
 features[field][] = commerce_product-video_product_type-field_videos
 features[field][] = commerce_product-video_product_type-title_field
 features[field][] = node-course-body
+features[field][] = node-course-field_corse_reference
 features[field][] = node-course-field_credits_required
 features[field][] = node-course-title_field
 features[field][] = node-training_video-body
