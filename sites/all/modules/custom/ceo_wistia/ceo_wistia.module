@@ -45,6 +45,7 @@ function ceo_wistia_debug() {
 
   $credits = ceo_certification_course_credit_check($uid, $course_id);
 
+  $totalCredits = ceo_certification_course_required_credits($course_id);
 
 
   return "Credits for SC $credits";
