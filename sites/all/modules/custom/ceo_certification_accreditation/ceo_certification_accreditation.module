@@ -257,7 +257,7 @@ function ceo_certification_course_credit_check($uid, $course_id) {
 function ceo_certification_course_required_credits($course_id) {
 
   // course_id is a taxonomy term
-  
+
   // Use tax term to load actual node.
   // load node and return credits from required credits field.
 
