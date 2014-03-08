@@ -269,3 +269,7 @@ div input.form-submit:hover {
     font-size: 1rem; }
   #zone-footer a:hover {
     color: #258faf; }
+
+.view-display-id-block_1 .views-row {
+  background-color: inherit;
+  border: none; }
