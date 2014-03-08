@@ -18,7 +18,36 @@ function ceo_wistia_menu() {
     'page callback' => 'ceo_wistia_progress',
     'type' => MENU_CALLBACK,
   );
+  //@TODO For debug only.
+  $items['ceo_wistia/debug'] = array(
+    'title' => 'Wistia Debug',
+    'access callback' => TRUE,
+    'page callback' => 'ceo_wistia_debug',
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
+}
+
+
+/**
+ * @TODO for debug only!
+ */
+function ceo_wistia_debug() {
+  $uid = 29;
+  $nid = 16;
+
+  // Fetch current progress. If null set it to 0.
+  $progress = _get_wistia_progress($uid, $nid);
+  $progress = ($progress == null ? 0 : $progress);
+
+  $course_id = ceo_certification_course_determination($nid);
+
+  $credits = ceo_certification_course_credit_check($uid, $course_id);
+
+
+
+  return "Credits for SC $credits";
 }
 
 /**

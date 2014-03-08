@@ -246,6 +246,29 @@ function ceo_certification_course_credit_check($uid, $course_id) {
   return $results;
 }
 
+/**
+ * Determines how many total credits a course contains
+ * @param int $course_id
+ *   Course ID.
+ *
+ * @TODO: complete function.
+ */
+function ceo_certification_course_required_credits($course_id) {
+  node_load($course_id);
+}
+
+
+/**
+ * Determines courses a user currently has in progress.
+ *
+ * @param int $course_id
+ *   Course ID.
+ *
+ * @TODO: complete function.
+ */
+function ceo_certification_user_course_progress($course_id) {
+
+}
 
 /**
  * Implements hook_form_alter().
