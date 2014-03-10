@@ -273,3 +273,6 @@ div input.form-submit:hover {
 .view-display-id-block_1 .views-row {
   background-color: inherit;
   border: none; }
+
+.block-menu-user-menu .block-inner {
+  float: left !important; }
