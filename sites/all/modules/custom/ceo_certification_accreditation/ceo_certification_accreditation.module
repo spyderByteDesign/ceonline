@@ -214,7 +214,8 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
  *   The video ID you want the course of.
  *
  * @return array
- *   Results of query in an associative array.
+ *   Results of query of taxonomy terms in an associative array.
+ *
  */
 function ceo_certification_course_determination($video_node) {
   $course = db_select('field_data_field_training_course', 'tc')
@@ -246,6 +247,38 @@ function ceo_certification_course_credit_check($uid, $course_id) {
   return $results;
 }
 
+/**
+ * Determines how many total credits a course contains
+ * @param int $course_id
+ *   Course ID.
+ *
+ * @TODO: complete function.
+ */
+function ceo_certification_course_required_credits($course_id) {
+
+  // course_id is a taxonomy term
+
+  // Use tax term to load actual node.
+  // load node and return credits from required credits field.
+
+  $node = node_load(15);
+  $credits = $node->field_credits_required['und'][0]['value'];
+
+  echo "test";
+}
+
+
+/**
+ * Determines courses a user currently has in progress.
+ *
+ * @param int $course_id
+ *   Course ID.
+ *
+ * @TODO: complete function.
+ */
+function ceo_certification_user_course_progress($course_id) {
+
+}
 
 /**
  * Implements hook_form_alter().

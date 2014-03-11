@@ -700,6 +700,85 @@ function ceo_custom_video_product_fields_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-course-field_corse_reference'.
+  $fields['node-course-field_corse_reference'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_corse_reference',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'training_course',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'course',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '1',
+        ),
+        'product_list' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'fences_wrapper' => '',
+      'field_name' => 'field_corse_reference',
+      'label' => 'Corse Reference',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'apply_chosen' => 0,
+        ),
+        'type' => 'options_select',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'node-course-field_credits_required'.
   $fields['node-course-field_credits_required'] = array(
     'field_config' => array(
@@ -723,7 +802,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => 'How many credits are required to complete this course?',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
@@ -732,7 +811,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => 3,
+          'weight' => '2',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -808,7 +887,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1787,6 +1866,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
   t('Body');
   t('Check this box if the product is a package and will include multiple videos.');
   t('Comment');
+  t('Corse Reference');
   t('Course');
   t('Course Order');
   t('Credits Required');
