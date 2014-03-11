@@ -41,7 +41,7 @@ div input.form-submit:hover {
 }
 
 input.form-submit {
-	
+
 }
 
 /*----- HEADER -----*/
@@ -83,7 +83,7 @@ input.form-submit {
 .main-menu a.active-trail.active {
 	font-weight: bold !important;
 	  color: #90918e;
-	
+
 }
 
 .block-shopping-cart-block ul.links.inline {
@@ -242,15 +242,15 @@ input.form-submit {
 
 #dialog {
   display: none; }
-  
+
 
 /*----- CART MODAL -----*/
 
 .commerce-add-to-cart-confirmation {
 	background-color: white !important;
 	border-style: none !important;
-} 
- 
+}
+
 .commerce-add-to-cart-confirmation .button-wrapper {
 	background: url(none) #fefffe !important;
 	padding: 5em 1em 0 !important;
@@ -272,7 +272,7 @@ input.form-submit {
 
 .message-inner .added-product-title.clearfix {
 		color: #1cbdd4 !important;
-	
+
 }
 
 .views-field-commerce-total span.field-content {
@@ -312,7 +312,7 @@ input.form-submit {
 
 #user_login_form input#edit-submit.form-submit:hover {
 		background-color: #189fb4 !important;
-	
+
 }
 
 
@@ -337,3 +337,43 @@ input.form-submit {
 .block-menu-user-menu .block-inner {
   float: left !important;
 }
+
+
+/*-------- User Page ------------ */
+@media screen and (min-width: 740px) {
+  .page-user {
+    div.tabs, div#block-system-main {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    div.tabs {
+      width: 20%;
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 30px;
+      padding-right: 10px;
+      padding-left: 10px;
+      ul {
+        margin-left: 0;
+      }
+      li {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      a {
+        padding-left: 5;
+      }
+    }
+    div#block-system-main {
+      margin-left: 0;
+      margin-right: 0;
+      padding-right: 10px;
+      padding-left: 10px;
+      width: 80%;
+      float: left;
+    }
+  }
+}
+
