@@ -69,7 +69,7 @@ function ceo_user_fields_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );
@@ -133,7 +133,7 @@ function ceo_user_fields_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '5',
+        'weight' => '3',
       ),
     ),
   );
