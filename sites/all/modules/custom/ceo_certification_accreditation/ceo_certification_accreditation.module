@@ -197,7 +197,9 @@ function ceo_certification_completion($user_id = NULL, $video_node_id = NULL) {
     // If there are no credits found.
     else {
       $output = $course_credits . " credits found for course " . $course_results['field_training_course_tid'] . " on user " . $user_id;
-      return t($output);
+      watchdog('ceo_custom', $output);
+      $path = "user/$user_id/videos";
+      drupal_goto($path);
     }
   }
   // Missing URL parameter.
