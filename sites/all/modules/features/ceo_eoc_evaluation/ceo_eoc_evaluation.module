@@ -2,6 +2,7 @@
 /**
  * @file
  * Code for the CEO EOC Evaluation feature.
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 include_once 'ceo_eoc_evaluation.features.inc';

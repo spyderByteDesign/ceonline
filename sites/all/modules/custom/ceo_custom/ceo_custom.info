@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CE Online Custom
 description = Custom functionality for the CE Online Training Site
 core = 7.x

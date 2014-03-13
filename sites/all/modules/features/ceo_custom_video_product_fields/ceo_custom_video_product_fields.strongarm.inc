@@ -2,6 +2,7 @@
 /**
  * @file
  * ceo_custom_video_product_fields.strongarm.inc
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 /**

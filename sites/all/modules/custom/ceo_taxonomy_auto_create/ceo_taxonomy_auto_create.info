@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CEO Taxonomy Auto Create
 description = Automatically creates taxonomy terms when new course nodes are saved.
 core = 7.x

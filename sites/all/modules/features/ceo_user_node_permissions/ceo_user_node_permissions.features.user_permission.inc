@@ -2,6 +2,7 @@
 /**
  * @file
  * ceo_user_node_permissions.features.user_permission.inc
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 /**

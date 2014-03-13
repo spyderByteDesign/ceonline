@@ -1,4 +1,9 @@
 <?php
+/**
+ * @file
+ * Ceonline custom module.
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
+ */
 
 /**
  * Implements hook_commerce_checkout_complete().

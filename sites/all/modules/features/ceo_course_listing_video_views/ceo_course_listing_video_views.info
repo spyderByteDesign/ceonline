@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CEO Course Listing/Video Views
 description = Provides views for the course listing and videos
 core = 7.x

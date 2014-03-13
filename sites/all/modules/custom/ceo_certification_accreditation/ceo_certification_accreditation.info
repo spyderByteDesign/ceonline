@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CE Online Training Certification & Accreditation
 description = Provides functionality related to certificates and accreditation progress.
 core = 7.x

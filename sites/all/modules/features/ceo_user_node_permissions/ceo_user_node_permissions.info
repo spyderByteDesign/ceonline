@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CEO User Node Permissions
 description = Provides node related user permissions
 core = 7.x

@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CEO User Fields
 description = Provides user fields.
 core = 7.x

@@ -2,6 +2,7 @@
 /**
  * @file
  * Code for the CEO Course Listing/Video Views feature.
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 include_once 'ceo_course_listing_video_views.features.inc';

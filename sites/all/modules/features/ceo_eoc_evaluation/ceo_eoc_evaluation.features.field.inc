@@ -2,6 +2,7 @@
 /**
  * @file
  * ceo_eoc_evaluation.features.field.inc
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 /**

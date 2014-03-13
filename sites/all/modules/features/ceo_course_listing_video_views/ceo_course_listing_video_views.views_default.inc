@@ -2,6 +2,7 @@
 /**
  * @file
  * ceo_course_listing_video_views.views_default.inc
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 /**

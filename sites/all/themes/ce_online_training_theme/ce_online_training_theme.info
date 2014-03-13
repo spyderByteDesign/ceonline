@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = 'CE Online Training Theme'
 description = ''
 core = '7.x'

@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CEOnline Wistia Integration
 description = Integrates Wistia oembed links with the player API
 core = 7.x

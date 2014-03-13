@@ -2,6 +2,7 @@
 /**
  * @file
  * ceo_custom_video_product_fields.autosku_pattern.inc
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 /**

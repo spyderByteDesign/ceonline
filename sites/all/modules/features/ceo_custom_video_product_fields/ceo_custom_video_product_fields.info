@@ -1,3 +1,4 @@
+;@copyright Copyright (c) 2014 Spyder Byte Design LLC
 name = CEO Custom Video Product & Fields
 description = Provides the video product type and content type to ensure proper integration with the access control systems.
 core = 7.x

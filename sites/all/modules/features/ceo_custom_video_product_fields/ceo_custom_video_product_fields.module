@@ -2,6 +2,7 @@
 /**
  * @file
  * Code for the CEO Custom Video Product & Fields feature.
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 include_once 'ceo_custom_video_product_fields.features.inc';

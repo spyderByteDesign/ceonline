@@ -2,6 +2,7 @@
 /**
  * @file
  * ceo_commerce_rules.rules_defaults.inc
+ * @copyright Copyright (c) 2014 Spyder Byte Design LLC
  */
 
 /**
