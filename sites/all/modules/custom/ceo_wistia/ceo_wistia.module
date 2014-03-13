@@ -76,7 +76,7 @@ function ceo_wistia_progress($nid = 0, $uid = 0, $progress = 0) {
         ->fields(array(
           'nid' => $nid,
           'uid' => $uid,
-          'progress' => $progress,
+          'progress' => $progress + 1,
           'last_updated' => date('Y-m-d H:i:s'),
         ))
         ->execute();

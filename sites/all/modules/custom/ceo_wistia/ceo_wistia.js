@@ -13,7 +13,7 @@
   $('#dialog').hide();
 
   // Resume video progress where user last left off.
-  wistiaEmbed.time(900 * Drupal.settings.ceo_wistia.progress);
+  wistiaEmbed.time(901 * Drupal.settings.ceo_wistia.progress);
 
   // Stops video every 900 seconds for user check.
   wistiaEmbed.bind("secondchange", function (s) {
