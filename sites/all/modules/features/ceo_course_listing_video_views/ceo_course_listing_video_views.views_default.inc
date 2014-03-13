@@ -259,6 +259,18 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['fields']['field_training_course']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_training_course']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_training_course']['field_api_classes'] = TRUE;
+  /* Field: Content: Video Teaser */
+  $handler->display->display_options['fields']['field_video_teaser']['id'] = 'field_video_teaser';
+  $handler->display->display_options['fields']['field_video_teaser']['table'] = 'field_data_field_video_teaser';
+  $handler->display->display_options['fields']['field_video_teaser']['field'] = 'field_video_teaser';
+  $handler->display->display_options['fields']['field_video_teaser']['label'] = '';
+  $handler->display->display_options['fields']['field_video_teaser']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_video_teaser']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_video_teaser']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_video_teaser']['type'] = 'file_rendered';
+  $handler->display->display_options['fields']['field_video_teaser']['settings'] = array(
+    'file_view_mode' => 'media_original',
+  );
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
@@ -321,7 +333,7 @@ function ceo_course_listing_video_views_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'You haven\'t purchased any videos yet. ';
+  $handler->display->display_options['empty']['area']['content'] = 'You haven\'t purchased any videos yet. Please visit <a href="course-list">here</a> to purchase a certification\'s videos. ';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
