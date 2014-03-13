@@ -1,0 +1,11 @@
+name = ceo commerce rules
+description = ceo custom commerce rules
+core = 7.x
+package = ceo
+version = 7.x-1.0
+project = ceo_commerce_rules
+dependencies[] = commerce_checkout
+dependencies[] = entity
+dependencies[] = rules
+features[features_api][] = api:1
+features[rules_config][] = rules_view_videos
