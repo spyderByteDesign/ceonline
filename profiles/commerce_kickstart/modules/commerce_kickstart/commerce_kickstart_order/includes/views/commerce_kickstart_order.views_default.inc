@@ -107,6 +107,12 @@ function commerce_kickstart_order_views_default_views_alter(&$views) {
     $handler->display->display_options['fields']['commerce_display_path']['empty_zero'] = 0;
     $handler->display->display_options['fields']['commerce_display_path']['field_api_classes'] = 0;
     /* Field: Commerce Line Item: Title */
+    $handler->display->display_options['fields']['line_item_title_1']['id'] = 'line_item_title_1';
+    $handler->display->display_options['fields']['line_item_title_1']['table'] = 'commerce_line_item';
+    $handler->display->display_options['fields']['line_item_title_1']['field'] = 'line_item_title';
+    $handler->display->display_options['fields']['line_item_title_1']['relationship'] = 'commerce_line_items_line_item_id';
+    $handler->display->display_options['fields']['line_item_title_1']['exclude'] = TRUE;
+    /* Field: Commerce Line Item: Title */
     $handler->display->display_options['fields']['line_item_title']['id'] = 'line_item_title';
     $handler->display->display_options['fields']['line_item_title']['table'] = 'commerce_line_item';
     $handler->display->display_options['fields']['line_item_title']['field'] = 'line_item_title';
@@ -169,8 +175,7 @@ function commerce_kickstart_order_views_default_views_alter(&$views) {
     $handler->display->display_options['fields']['nothing']['table'] = 'views';
     $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
     $handler->display->display_options['fields']['nothing']['label'] = '';
-    $handler->display->display_options['fields']['nothing']['alter']['text'] = '[commerce_product]
-    [line_item_title]';
+    $handler->display->display_options['fields']['nothing']['alter']['text'] = '[line_item_title_1]';
     $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
     $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
     $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
