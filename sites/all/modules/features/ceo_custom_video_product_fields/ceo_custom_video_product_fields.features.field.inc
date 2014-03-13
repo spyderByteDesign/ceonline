@@ -970,7 +970,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1033,15 +1033,9 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'number',
-          'settings' => array(
-            'decimal_separator' => '.',
-            'prefix_suffix' => TRUE,
-            'scale' => 0,
-            'thousand_separator' => ' ',
-          ),
-          'type' => 'number_integer',
-          'weight' => 3,
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1119,11 +1113,11 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => 'Which training course is this a part of?',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1196,13 +1190,13 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'file_entity',
           'settings' => array(
             'file_view_mode' => 'default',
           ),
           'type' => 'file_rendered',
-          'weight' => '3',
+          'weight' => '0',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1291,7 +1285,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '4',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1747,7 +1741,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'settings' => array(
         'description_field' => 0,
         'file_directory' => '',
-        'file_extensions' => 'txt',
+        'file_extensions' => 'mp4',
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
@@ -1757,6 +1751,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
         'settings' => array(
           'allowed_schemes' => array(
             'oembed' => 'oembed',
+            'private' => 0,
             'public' => 0,
           ),
           'allowed_types' => array(
