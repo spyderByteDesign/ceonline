@@ -205,7 +205,7 @@ function ceo_custom_video_product_fields_strongarm() {
       'display' => array(
         'product:sku' => array(
           'default' => array(
-            'weight' => '-10',
+            'weight' => '8',
             'visible' => FALSE,
           ),
           'teaser' => array(
@@ -215,7 +215,7 @@ function ceo_custom_video_product_fields_strongarm() {
         ),
         'product:title' => array(
           'default' => array(
-            'weight' => '-5',
+            'weight' => '9',
             'visible' => FALSE,
           ),
           'teaser' => array(
@@ -225,7 +225,7 @@ function ceo_custom_video_product_fields_strongarm() {
         ),
         'product:status' => array(
           'default' => array(
-            'weight' => '5',
+            'weight' => '11',
             'visible' => FALSE,
           ),
           'teaser' => array(
@@ -235,32 +235,32 @@ function ceo_custom_video_product_fields_strongarm() {
         ),
         'product:title_field' => array(
           'default' => array(
-            'weight' => '-5',
-            'visible' => TRUE,
-          ),
-          'teaser' => array(
-            'weight' => '1',
-            'visible' => TRUE,
-          ),
-        ),
-        'product:commerce_price' => array(
-          'default' => array(
             'weight' => '0',
             'visible' => TRUE,
           ),
           'teaser' => array(
-            'weight' => '2',
+            'weight' => '1',
+            'visible' => FALSE,
+          ),
+        ),
+        'product:commerce_price' => array(
+          'default' => array(
+            'weight' => '1',
             'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '2',
+            'visible' => FALSE,
           ),
         ),
         'product:field_videos' => array(
           'default' => array(
-            'weight' => '36',
+            'weight' => '5',
             'visible' => TRUE,
           ),
           'teaser' => array(
             'weight' => '3',
-            'visible' => TRUE,
+            'visible' => FALSE,
           ),
         ),
       ),

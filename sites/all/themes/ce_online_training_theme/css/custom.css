@@ -276,3 +276,20 @@ div input.form-submit:hover {
 
 .block-menu-user-menu .block-inner {
   float: left !important; }
+
+.page-node .node-video-product-type .field {
+  float: left;
+  clear: left; }
+.page-node .node-video-product-type .field-name-field-product {
+  width: 30%;
+  float: right; }
+.page-node .node-video-product-type .field-title-field {
+  font-size: 34px; }
+.page-node .node-video-product-type .field-name-field-related-products, .page-node .node-video-product-type form.commerce-add-to-cart, .page-node .node-video-product-type .field-name-field-product {
+  background-image: none; }
+.page-node .node-video-product-type form.commerce-add-to-cart {
+  padding-top: 0; }
+.page-node .node-video-product-type .form-item-quantity {
+  display: none; }
+.page-node .node-video-product-type #edit-submit.form-submit {
+  margin-top: 0; }
