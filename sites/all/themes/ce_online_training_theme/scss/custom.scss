@@ -1,5 +1,4 @@
 /* @override http://dev-ceonline.gotpantheon.com/sites/all/themes/ce_online_training_theme/css/custom.css?n1xj17 */
-
 /* @override http://dev-ceonline.gotpantheon.com/sites/all/themes/ce_online_training_theme/css/custom.css?n1xj17 */
 /*----- GLOBAL -----*/
 
@@ -338,6 +337,38 @@ input.form-submit {
 
 .block-menu-user-menu .block-inner {
   float: left !important;
+}
+
+//------- Video Product ------------//
+
+.page-node .node-video-product-type {
+  .field {
+    float: left;
+    clear: left;
+  }
+  .field-name-field-product {
+    width: 30%;
+    float: right;
+  }
+  .field-title-field {
+    font-size: 34px;
+  }
+
+  .field-name-field-related-products, form.commerce-add-to-cart, .field-name-field-product {
+    background-image: none;
+  }
+
+  form.commerce-add-to-cart {
+    padding-top: 0;
+  }
+
+  .form-item-quantity {
+    display: none;
+  }
+  #edit-submit.form-submit {
+    margin-top: 0;
+  }
+}
 }
 
 

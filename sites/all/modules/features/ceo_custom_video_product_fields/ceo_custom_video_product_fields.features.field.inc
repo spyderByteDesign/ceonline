@@ -322,7 +322,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
             'calculation' => 'calculated_sell_price',
           ),
           'type' => 'commerce_price_formatted_amount',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -491,7 +491,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
             'link' => FALSE,
           ),
           'type' => 'entityreference_label',
-          'weight' => 1,
+          'weight' => '1',
         ),
         'line_item' => array(
           'label' => 'above',
@@ -572,11 +572,11 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'weight' => 0,
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'line_item' => array(
           'label' => 'above',
@@ -971,7 +971,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => '0',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1197,7 +1197,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
             'file_view_mode' => 'default',
           ),
           'type' => 'file_rendered',
-          'weight' => '0',
+          'weight' => '2',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1364,7 +1364,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'commerce_cart',
           'settings' => array(
             'combine' => 1,
@@ -1374,7 +1374,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
             'show_single_product_attributes' => FALSE,
           ),
           'type' => 'commerce_cart_add_to_cart_form',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -1470,10 +1470,9 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '4',
+          'type' => 'hidden',
+          'weight' => '10',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1545,15 +1544,9 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'commerce_cart',
-          'settings' => array(
-            'combine' => TRUE,
-            'default_quantity' => 1,
-            'line_item_type' => 'product',
-            'show_quantity' => FALSE,
-            'show_single_product_attributes' => FALSE,
-          ),
-          'type' => 'commerce_cart_add_to_cart_form',
+          'module' => 'commerce_product_reference',
+          'settings' => array(),
+          'type' => 'commerce_product_reference_title_link',
           'weight' => '6',
         ),
         'product_list' => array(
@@ -1637,11 +1630,11 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => 'Which training course is this a part of?',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '7',
+          'weight' => '3',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1650,7 +1643,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'weight' => 0,
         ),
         'teaser' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
@@ -1715,11 +1708,11 @@ function ceo_custom_video_product_fields_field_default_fields() {
       'description' => 'Please provide a short teaser for the course video.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => 8,
+          'weight' => '4',
         ),
         'product_list' => array(
           'label' => 'above',
@@ -1728,10 +1721,13 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'weight' => 0,
         ),
         'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'file_entity',
+          'settings' => array(
+            'file_view_mode' => 'media_preview',
+          ),
+          'type' => 'file_rendered',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -1808,7 +1804,7 @@ function ceo_custom_video_product_fields_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '-20',
+          'weight' => '7',
         ),
         'product_list' => array(
           'label' => 'hidden',

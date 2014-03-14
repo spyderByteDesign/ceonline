@@ -277,38 +277,19 @@ div input.form-submit:hover {
 .block-menu-user-menu .block-inner {
   float: left !important; }
 
-/*-------- User Page ------------ */
-@media screen and (min-width: 740px) {
-  .page-user div.tabs, .page-user div#block-system-main {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; }
-  .page-user div.tabs {
-    width: 30%;
-    float: right;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 30px;
-    padding-right: 10px;
-    padding-left: 10px; }
-    .page-user div.tabs ul.primary {
-      margin-left: 0;
-      border: none; }
-    .page-user div.tabs li {
-      text-align: center;
-      margin-left: 0;
-      margin-right: 0;
-      background: #ECECEC;
-      width: 100%;
-      margin-bottom: 10px; }
-    .page-user div.tabs a {
-      padding-left: 5; }
-      .page-user div.tabs a:hover {
-        text-decoration: underline; }
-  .page-user div#block-system-main {
-    margin-left: 0;
-    margin-right: 0;
-    padding-right: 10px;
-    padding-left: 10px;
-    width: 70%;
-    float: left; } }
+.page-node .node-video-product-type .field {
+  float: left;
+  clear: left; }
+.page-node .node-video-product-type .field-name-field-product {
+  width: 30%;
+  float: right; }
+.page-node .node-video-product-type .field-title-field {
+  font-size: 34px; }
+.page-node .node-video-product-type .field-name-field-related-products, .page-node .node-video-product-type form.commerce-add-to-cart, .page-node .node-video-product-type .field-name-field-product {
+  background-image: none; }
+.page-node .node-video-product-type form.commerce-add-to-cart {
+  padding-top: 0; }
+.page-node .node-video-product-type .form-item-quantity {
+  display: none; }
+.page-node .node-video-product-type #edit-submit.form-submit {
+  margin-top: 0; }
