@@ -260,6 +260,10 @@ div input.form-submit:hover {
 #user_login_form input#edit-submit.form-submit:hover {
   background-color: #189fb4 !important; }
 
+#user-register-form #edit-field-first-name {
+  clear: both;
+  padding-top: 1px; }
+
 #zone-footer {
   font-size: 0.9375rem;
   color: #e9e9e9; }
